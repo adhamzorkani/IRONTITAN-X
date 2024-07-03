@@ -16,7 +16,7 @@
         android:layout_marginTop="44dp"
         android:layout_marginEnd="68dp"
         android:text="@string/sign_up"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/loginButton"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,11 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="28dp"
-        android:backgroundTint="#121212"
+        android:backgroundTint="@color/background"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/or_login"
-        android:textColor="#eb1b1b"
+        android:textColor="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#eb1b1b"
@@ -51,9 +51,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pageTitle"
         android:autofillHints="name"
-        android:textColor="#bdbdbd"
+        android:textColor="@color/white"
         android:padding="15dp"
-        android:textColorHint="#bdbdbd"
+        android:textColorHint="@color/white"
         android:background="@drawable/custom_edit_text_rounded"/>
 
     <EditText
@@ -72,9 +72,9 @@
         android:background="@drawable/custom_edit_text_rounded"
         android:hint="@string/email"
         android:autofillHints="emailAddress"
-        android:textColor="#bdbdbd"
+        android:textColor="@color/white"
         android:padding="15dp"
-        android:textColorHint="#bdbdbd"/>
+        android:textColorHint="@color/white"/>
 
     <EditText
         android:id="@+id/Password"
@@ -90,9 +90,9 @@
         app:layout_constraintTop_toBottomOf="@+id/EmailAddress"
         android:background="@drawable/custom_edit_text_rounded"
         android:hint="@string/password"
-        android:textColor="#bdbdbd"
+        android:textColor="@color/white"
         android:padding="15dp"
-        android:textColorHint="#bdbdbd"
+        android:textColorHint="@color/white"
         android:autofillHints="password" />
 
     <Button
@@ -102,9 +102,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#eb1b1b"
+        android:backgroundTint="@color/red"
         android:text="@string/sign_up"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Password"
