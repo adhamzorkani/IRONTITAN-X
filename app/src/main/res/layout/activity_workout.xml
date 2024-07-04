@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meals Tracker"
+        android:textSize="24sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="16dp"
+        android:progress="40"
+        android:max="100"
+        android:progressTint="@color/red"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/caloriesRemaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="400 Calories remaining"
+        android:layout_below="@id/progressBar"
+        android:layout_marginBottom="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/caloriesRemaining"
+        android:layout_marginBottom="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/searchView"
+        android:layout_above="@id/logMealButton"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/logMealButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log meal entry"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
+
+
+</RelativeLayout>
