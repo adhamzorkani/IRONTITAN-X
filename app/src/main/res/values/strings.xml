@@ -19,4 +19,14 @@
     <string name="maintain_weight">Maintain Weight</string>
     <string name="modify_diet">Modify Diet</string>
     <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="what_is_your_activity_level">What is your activity level?</string>
+    <string name="no_activity">No Activity</string>
+    <string name="light_activity">Lightly Active</string>
+    <string name="active">Active</string>
+    <string name="highly_active">Highly Active</string>
+    <string name="you">You</string>
+    <string name="please_answer_the_following_questions_for_nmore_accurate_results">Please answer the following questions for\nmore accurate results:</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
 </resources>
