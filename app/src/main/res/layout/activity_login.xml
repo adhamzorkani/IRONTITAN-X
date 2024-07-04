@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212"
+    android:background="@color/background"
     tools:context=".login">
 
     <TextView
@@ -20,7 +20,8 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/EmailAddress"
@@ -59,7 +60,7 @@
 
 
     <Button
-        android:id="@+id/LoginButton"
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -76,7 +77,7 @@
 
 
     <TextView
-        android:id="@+id/Button"
+        android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -92,7 +93,7 @@
         android:textSize="16sp"/>
 
     <TextView
-        android:id="@+id/loginButton"
+        android:id="@+id/forgotPasswordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -102,9 +103,10 @@
         android:text="@string/forgot_your_password"
         android:textColor="#eb1b1b"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/LoginButton"
-        app:strokeColor="#eb1b1b"
-        tools:layout_editor_absoluteX="124dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:strokeColor="#eb1b1b" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

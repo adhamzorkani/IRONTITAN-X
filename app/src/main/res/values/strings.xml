@@ -7,4 +7,16 @@
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
     <string name="forgot_your_password">Forgot your password?</string>
+    <string name="app_logo">App Logo</string>
+    <string name="goals">Goals</string>
+    <string name="select_up_to_2_goals">Select up to 2 Goals</string>
+    <string name="ps_you_can_t_select_lose_weight_and_ngain_weight_at_the_same_time">PS: You can\'t select lose weight and\ngain weight at the same time</string>
+    <string name="lose_weight">Lose Weight</string>
+    <string name="gain_weight">Gain Weight</string>
+    <string name="gain_muscle">Gain Muscle</string>
+    <string name="red_tab">red tab</string>
+    <string name="grey_tab">grey tab</string>
+    <string name="maintain_weight">Maintain Weight</string>
+    <string name="modify_diet">Modify Diet</string>
+    <string name="next">Next</string>
 </resources>
