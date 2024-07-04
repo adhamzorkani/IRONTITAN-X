@@ -37,7 +37,7 @@
         app:strokeColor="#eb1b1b"
         android:textSize="16sp"/>
 
-    <EditText
+     <EditText
         android:id="@+id/NameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
