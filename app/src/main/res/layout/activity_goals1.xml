@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".goals1"
     android:background="@color/background">
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
