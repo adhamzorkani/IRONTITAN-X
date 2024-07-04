@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/navigation_bar"
         android:layout_width="0dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="@drawable/nagv_bar_background"
         android:gravity="center"
         android:orientation="horizontal"
@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="15dp">
 
         <FrameLayout
             android:layout_width="0dp"
