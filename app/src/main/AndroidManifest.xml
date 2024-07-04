@@ -28,6 +28,21 @@
             android:name=".Home"
             android:exported="false" />
         <activity
+            android:name=".navigationBar"
+            android:exported="false" />
+        <activity
+            android:name=".goals4"
+            android:exported="false" />
+        <activity
+            android:name=".goals3"
+            android:exported="false" />
+        <activity
+            android:name=".goals2"
+            android:exported="false" />
+        <activity
+            android:name=".goals1"
+            android:exported="false" />
+        <activity
             android:name=".login"
             android:exported="false" />
         <activity

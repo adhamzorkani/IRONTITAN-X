@@ -13,4 +13,19 @@
     <string name="remainig_calories">1680\nRemaining</string>
     <string name="assistant">Personal Assistant</string>
     <string name="message">Type a message…</string>
+    <string name="app_logo">App Logo</string>
+    <string name="goals">Goals</string>
+    <string name="select_up_to_2_goals">Select up to 2 Goals</string>
+    <string name="ps_you_can_t_select_lose_weight_and_ngain_weight_at_the_same_time">PS: You can\'t select lose weight and\ngain weight at the same time</string>
+    <string name="lose_weight">Lose Weight</string>
+    <string name="gain_weight">Gain Weight</string>
+    <string name="gain_muscle">Gain Muscle</string>
+    <string name="red_tab">red tab</string>
+    <string name="grey_tab">grey tab</string>
+    <string name="maintain_weight">Maintain Weight</string>
+    <string name="modify_diet">Modify Diet</string>
+    <string name="next">Next</string>
+    <string name="fitness">fitness</string>
+    <string name="food">food</string>
+    <string name="more">more</string>
 </resources>
