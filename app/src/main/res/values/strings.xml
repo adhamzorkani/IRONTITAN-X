@@ -19,4 +19,8 @@
     <string name="maintain_weight">Maintain Weight</string>
     <string name="modify_diet">Modify Diet</string>
     <string name="next">Next</string>
+    <string name="home">home</string>
+    <string name="fitness">fitness</string>
+    <string name="food">food</string>
+    <string name="more">more</string>
 </resources>
