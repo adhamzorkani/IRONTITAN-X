@@ -31,7 +31,7 @@ public class goals4 extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(goals4.this, goals3.class); //should go to home
+                Intent intent = new Intent(goals4.this, Home.class);
                 startActivity(intent);
             }
         });

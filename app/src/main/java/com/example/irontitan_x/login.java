@@ -36,7 +36,7 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 Toast toast = Toast.makeText(login.this,"authentication through api call", Toast.LENGTH_LONG);
                 toast.show();
-                Intent intent = new Intent(login.this, signUp.class); //should be main screen
+                Intent intent = new Intent(login.this, Home.class);
                 startActivity(intent);
                 finish();
             }

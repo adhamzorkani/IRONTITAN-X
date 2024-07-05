@@ -52,4 +52,17 @@
     <string name="fitness">fitness</string>
     <string name="food">food</string>
     <string name="more">more</string>
+    <string name="user_message">User message</string>
+    <string name="profile">Profile</string>
+    <string name="notification">notification</string>
+    <string name="calories_burnt">Calories burnt</string>
+    <string name="_0_6_4l">0.6/4L</string>
+    <string name="search_for_near_by_gyms">Search for near by gyms</string>
+    <string name="discover">Discover</string>
+    <string name="chat_bot">Chat Bot</string>
+    <string name="_16">16</string>
+    <string name="water_intake">Water Intake</string>
+    <string name="upgrade_to_premium">Upgrade To premium</string>
+    <string name="chatbot">Chatbot</string>
+    <string name="upgrade_to_npremium">Upgrade to\npremium</string>
 </resources>

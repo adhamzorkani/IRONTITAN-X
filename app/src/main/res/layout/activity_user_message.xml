@@ -22,7 +22,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:padding="3dp"
-            android:text="User message"
+            android:text="@string/user_message"
             android:textColor="@color/black" />
 
 
