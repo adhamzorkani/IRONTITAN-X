@@ -29,4 +29,15 @@
     <string name="please_answer_the_following_questions_for_nmore_accurate_results">Please answer the following questions for\nmore accurate results:</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="age">Age</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="target_weight">Target Weight</string>
+    <string name="plan">Plan</string>
+    <string name="please_choose_the_package_you_like">Please choose the package you like:</string>
+    <string name="crown">Crown</string>
+    <string name="premium">Premium</string>
+    <string name="_19_99">$19.99</string>
+    <string name="standard">Standard</string>
+    <string name="free">Free</string>
 </resources>

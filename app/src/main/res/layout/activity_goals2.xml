@@ -17,6 +17,7 @@
         android:paddingHorizontal="20dp">
 
         <TextView
+            android:id="@+id/backText"
             android:text="@string/back"
             android:textColor="@color/red"
             android:textSize="16sp"
