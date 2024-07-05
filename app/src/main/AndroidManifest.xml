@@ -13,6 +13,9 @@
         android:theme="@style/Theme.IRONTITANX"
         tools:targetApi="31">
         <activity
+            android:name=".forgotPassword"
+            android:exported="false" />
+        <activity
             android:name=".goals4"
             android:exported="false" />
         <activity

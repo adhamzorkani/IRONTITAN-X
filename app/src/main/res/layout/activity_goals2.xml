@@ -94,53 +94,66 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableRow2" />
 
-    <Button
-        android:id="@+id/noActivityButton"
+
+    <RadioGroup
+        android:id="@+id/toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="32dp"
-        android:backgroundTint="@color/grey"
-        android:text="@string/no_activity"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/activityText"/>
+        android:checkedButton="@id/noActivityButton"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/activityText">
 
-    <Button
-        android:id="@+id/lightActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:backgroundTint="@color/grey"
-        android:text="@string/light_activity"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/noActivityButton"
-        android:layout_marginTop="15dp"/>
 
-    <Button
-        android:id="@+id/Active"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:backgroundTint="@color/grey"
-        android:text="@string/active"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/lightActivity"
-        android:layout_marginTop="15dp"/>
+        <RadioButton
+            android:id="@+id/noActivityButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_activity"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="@drawable/switch_thumb"
+            android:gravity="center"
+            android:button="@null"/>
 
-    <Button
-        android:id="@+id/highActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:backgroundTint="@color/grey"
-        android:text="@string/highly_active"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/Active"
-        android:layout_marginTop="15dp"/>
+        <RadioButton
+            android:id="@+id/lightActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/light_activity"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/switch_thumb"
+            android:gravity="center"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/Active"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/active"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/switch_thumb"
+            android:gravity="center"
+            android:button="@null"/>
+
+        <RadioButton
+            android:id="@+id/highActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/highly_active"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/switch_thumb"
+            android:gravity="center"
+            android:button="@null"/>
+
+    </RadioGroup>
 
     <Button
         android:id="@+id/nextButton"
@@ -153,4 +166,5 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="55dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

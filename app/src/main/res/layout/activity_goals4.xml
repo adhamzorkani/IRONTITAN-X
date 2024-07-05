@@ -96,71 +96,39 @@
         android:paddingHorizontal="20dp"
         android:layout_marginTop="20dp">
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RadioButton
+            android:id="@+id/radio_premium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:layout_marginBottom="20dp">
+            android:drawableStart="@drawable/switch_crown"
+            android:drawablePadding="10dp"
+            android:text="@string/premium"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintHorizontal_bias="0"
+            android:background="@drawable/switch_thumb"
+            android:button="@null"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:drawableEnd="@drawable/_19_99"/>
 
-            <RadioButton
-                android:id="@+id/radio_premium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/crown"
-                android:drawablePadding="10dp"
-                android:text="@string/premium"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/text_price"
-                app:layout_constraintHorizontal_bias="0"/>
 
-            <TextView
-                android:id="@+id/text_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_19_99"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RadioButton
+            android:id="@+id/radio_standard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp">
-
-            <RadioButton
-                android:id="@+id/radio_standard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/free"
-                android:drawablePadding="10dp"
-                android:text="@string/standard"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/text_standard"
-                app:layout_constraintHorizontal_bias="0"/>
-
-            <TextView
-                android:id="@+id/text_standard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/free"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:drawableStart="@drawable/switch_free"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="10dp"
+            android:text="@string/standard"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:background="@drawable/switch_thumb"
+            android:button="@null"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:drawableEnd="@drawable/free_text"/>
 
     </RadioGroup>
 

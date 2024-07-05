@@ -96,7 +96,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginHorizontal="40dp"
         android:background="@drawable/switch_track"
-        android:checkedButton="@+id/offer"
+        android:checkedButton="@+id/female"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

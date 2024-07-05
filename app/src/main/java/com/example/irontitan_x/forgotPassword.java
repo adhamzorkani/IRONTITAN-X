@@ -1,6 +1,5 @@
 package com.example.irontitan_x;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,51 +12,37 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class login extends AppCompatActivity {
+public class forgotPassword extends AppCompatActivity {
 
-    Button loginBtn;
-    TextView signUpTV, forgotPasswordTV;
-
+    Button sendEmailBtn;
+    TextView backTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_forgot_password);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        loginBtn=findViewById(R.id.loginButton);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        sendEmailBtn=findViewById(R.id.sendEmailButton);
+        sendEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(login.this,"authentication through api call", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(forgotPassword.this, "An email was sent to you", Toast.LENGTH_LONG);
                 toast.show();
-                Intent intent = new Intent(login.this, signUp.class); //should be main screen
-                startActivity(intent);
                 finish();
             }
         });
 
-        signUpTV=findViewById(R.id.signUpButton);
-        signUpTV.setOnClickListener(new View.OnClickListener() {
+        backTV=findViewById(R.id.backText);
+        backTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(login.this, signUp.class);
-                startActivity(intent);
                 finish();
-            }
-        });
-
-        forgotPasswordTV=findViewById(R.id.forgotPasswordButton);
-        forgotPasswordTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(login.this, forgotPassword.class);
-                startActivity(intent);
             }
         });
     }
