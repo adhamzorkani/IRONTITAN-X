@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context=".goals1">
+    tools:context=".goals1"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/textView"

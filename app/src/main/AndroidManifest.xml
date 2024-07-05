@@ -16,6 +16,24 @@
             android:name=".forgotPassword"
             android:exported="false" />
         <activity
+            android:name=".Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".user_message"
+            android:exported="false" />
+        <activity
+            android:name=".chatbot"
+            android:exported="false" />
+        <activity
+            android:name=".CircularProgressBarWithText"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
+            android:exported="false" />
+        <activity
+            android:name=".navigationBar"
+            android:exported="false" />
+        <activity
             android:name=".goals4"
             android:exported="false" />
         <activity

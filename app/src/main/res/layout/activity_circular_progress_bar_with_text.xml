@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="50"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/text_remaining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1,680\nRemaining"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
+</merge>
