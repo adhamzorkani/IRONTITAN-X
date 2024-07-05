@@ -5,18 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Assistant">
+    tools:context=".Assistant"
+    android:background="@color/black">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_weight="0.05"
             android:background="@color/grey">
@@ -39,7 +39,6 @@
                 android:text="@string/assistant"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-
                 android:textSize="20sp" />
 
             <ImageView
@@ -55,25 +54,25 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="573dp"
-            android:layout_weight="0.9" >
+            android:layout_height="0dp"
+            android:layout_weight="0.9">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/Chats"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:padding="10dp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:layout_weight="0.05"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:paddingHorizontal="10dp">
             <EditText
                 android:id="@+id/send_box"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:hint="@string/message"
                 android:textColor="@color/white"
@@ -85,13 +84,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:layout_marginTop="20dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_send"
+                android:padding="10dp"
                 android:textColor="@color/white" />
-
-
         </TableRow>
     </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
