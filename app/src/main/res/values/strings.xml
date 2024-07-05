@@ -65,4 +65,7 @@
     <string name="upgrade_to_premium">Upgrade To premium</string>
     <string name="chatbot">Chatbot</string>
     <string name="upgrade_to_npremium">Upgrade to\npremium</string>
+    <string name="back_button">back button</string>
+    <string name="chatbot_icon">Chatbot Icon</string>
+    <string name="send_button">send button</string>
 </resources>
