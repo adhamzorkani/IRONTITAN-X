@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/bot_msg">
+        android:background="@drawable/bot_msg"
+        android:padding="8dp">
 
         <ImageView
             android:layout_width="25dp"
@@ -23,13 +24,14 @@
 
         <TextView
             android:id="@+id/idTVBot"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="5dp"
             android:padding="3dp"
             android:text="Bot message"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:maxWidth="250dp" />
 
     </LinearLayout>
 
