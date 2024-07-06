@@ -5,18 +5,21 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/background">
     <!-- Back Button -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="80dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:text="@string/back"
+        android:textSize="15sp"
+        android:paddingStart="0dp"
         android:textColor="@color/red"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="16dp"/>
+        app:layout_constraintBottom_toTopOf="@id/muscleGroupSpinner"
+        android:layout_marginTop="8dp" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/muscleGroupSpinner"
@@ -32,14 +35,14 @@
             app:boxBackgroundColor="@color/white"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
 
-            <AutoCompleteTextView
-                android:id="@+id/muscle_selector"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:hint="@string/select_muscle"
-                android:textColor="@color/black"
-                android:searchResultHighlightColor="@color/red"/>
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/muscle_selector"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="none"-->
+<!--                android:hint="@string/select_muscle"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:searchResultHighlightColor="@color/red"/>-->
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -52,9 +55,9 @@
         android:inputType="none"
         android:id="@+id/searchBar"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="48dp"
         android:background="@drawable/custom_edit_text_rounded"
-        android:hint="@string/search_hint"
+        android:hint="@string/search_hint_exercise"
         android:textColor="#bdbdbd"
         android:textColorHint="#bdbdbd"
         android:visibility="visible"

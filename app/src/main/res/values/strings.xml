@@ -72,4 +72,16 @@
     <string name="back_button">back button</string>
     <string name="chatbot_icon">Chatbot Icon</string>
     <string name="send_button">send button</string>
+    <string name="select_muscle">Select muscle</string>
+    <string name="search_hint_exercise">Search for an exercise</string>
+    <string name="add">Add</string>
+    <string name="play_button">Play button</string>
+    <string name="select_video">Select video</string>
+    <string name="bicep_curls_dumbbell_or_barbell">Bicep curls (Dumbbell or Barbell)</string>
+    <string name="meals_tracker">Meals Tracker</string>
+    <string name="ready_plans">Ready Plans</string>
+    <string name="customize">Customize</string>
+    <string name="add_exercise">Add Exercise</string>
+    <string name="create_plan">Create Plan</string>
+    <string name="add_to_my_plans">Add to my Plans</string>
 </resources>

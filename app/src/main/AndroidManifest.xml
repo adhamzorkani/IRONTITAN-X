@@ -13,6 +13,18 @@
         android:theme="@style/Theme.IRONTITANX"
         tools:targetApi="31">
         <activity
+            android:name=".ReadyPlansActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodAcitvity"
+            android:exported="false" />
+        <activity
+            android:name=".workoutPlan"
+            android:exported="false" />
+        <activity
             android:name=".forgotPassword"
             android:exported="false" />
         <activity
@@ -32,9 +44,6 @@
             android:exported="false" />
         <activity
             android:name=".Home"
-            android:exported="false" />
-        <activity
-            android:name=".navigationBar"
             android:exported="false" />
         <activity
             android:name=".goals4"

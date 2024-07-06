@@ -33,7 +33,8 @@
             android:text="@string/ready_plans"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:checked="true"/>
 
         <RadioButton
             android:id="@+id/customize"
@@ -49,30 +50,22 @@
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="@color/white"
-            android:checked="true"/>
+            android:checked="false"/>
     </RadioGroup>
 
-    <Button
-        android:id="@+id/add_Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:backgroundTint="@color/red"
-        android:text="@string/add_exercise"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/toggle"
-        android:layout_marginTop="30dp" />
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/add_Button"
-        app:layout_constraintBottom_toTopOf="@id/createPlan"
+        android:id="@+id/videoRecyclerView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toggle"
+        app:layout_constraintBottom_toTopOf="@id/createPlan"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/activity_item_video" />
 
     <Button
         android:id="@+id/createPlan"
@@ -83,13 +76,13 @@
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/grey"
         android:paddingVertical="10dp"
-        android:text="@string/create_plan"
+        android:text="@string/add_to_my_plans"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/navigation_bar"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp" />
 
     <include
         android:id="@+id/navigation_bar"

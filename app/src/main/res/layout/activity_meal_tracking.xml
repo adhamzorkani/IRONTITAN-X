@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/title"
@@ -49,7 +49,7 @@
         android:layout_marginTop="10dp"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:text="400 Calories remaining"
+        android:text="1200 Calories remaining"
         android:layout_below="@id/progressBar"
         android:layout_marginBottom="16dp" />
 
@@ -78,13 +78,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/searchBar"
+        app:layout_constraintBottom_toTopOf="@id/addButton"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_marginTop="16dp" />
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
