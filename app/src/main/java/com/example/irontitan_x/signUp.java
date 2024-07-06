@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,8 @@ public class signUp extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast toast = Toast.makeText(signUp.this,"account creation through api call", Toast.LENGTH_LONG);
+                toast.show();
                 Intent intent = new Intent(signUp.this, goals1.class);
                 startActivity(intent);
                 finish();
@@ -48,6 +51,5 @@ public class signUp extends AppCompatActivity {
             }
         });
     }
-
 
 }

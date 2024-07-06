@@ -1,6 +1,10 @@
 package com.example.irontitan_x;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,11 +12,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import android.content.Intent;
-import android.view.View;
-import android.widget.ImageButton;
-
 public class Home extends AppCompatActivity {
+    private ImageButton homeButton;
+    private ImageButton fitnessButton;
+    private ImageButton foodButton;
+    private ImageButton moreButton;
+    ImageButton chatbotBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +29,48 @@ public class Home extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Find the button and set an OnClickListener
-        ImageButton imageButton2 = findViewById(R.id.imageButton2);
-        imageButton2.setOnClickListener(new View.OnClickListener() {
+        homeButton = findViewById(R.id.home_button);
+        fitnessButton = findViewById(R.id.fitness_button);
+        foodButton = findViewById(R.id.food_button);
+        moreButton = findViewById(R.id.more_button);
+        chatbotBtn = findViewById(R.id.chatBotButton);
+        chatbotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to start the Assistant activity
                 Intent intent = new Intent(Home.this, Assistant.class);
+                startActivity(intent);
+            }
+        });
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the Home activity
+            }
+        });
+
+        fitnessButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the Fitness activity
+                Intent intent = new Intent(Home.this, workoutPlan.class);
+                startActivity(intent);
+            }
+        });
+
+        foodButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the Food activity
+                Intent intent = new Intent(Home.this, FoodActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Navigate to the More activity
+                Intent intent = new Intent(Home.this, profile.class);
                 startActivity(intent);
             }
         });

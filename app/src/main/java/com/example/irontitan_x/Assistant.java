@@ -1,8 +1,9 @@
-// Assistant.java
 package com.example.irontitan_x;
-
 import android.os.Bundle;
 import android.view.View;
+
+import android.widget.ImageButton;
+
 import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,16 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
-
 public class Assistant extends AppCompatActivity {
+
+    ImageButton backBtn;
 
     private RecyclerView recyclerView;
     private MessageAdapter messageAdapter;
     private List<Message> messageList;
     private EditText sendBox;
     private ImageView sendIcon;
-    private ImageView backIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class Assistant extends AppCompatActivity {
         recyclerView = findViewById(R.id.Chats);
         sendBox = findViewById(R.id.send_box);
         sendIcon = findViewById(R.id.send_icon);
-        backIcon = findViewById(R.id.back);
 
         messageList = new ArrayList<>();
         messageAdapter = new MessageAdapter(messageList);
@@ -58,13 +57,13 @@ public class Assistant extends AppCompatActivity {
             }
         });
 
-        backIcon.setOnClickListener(new View.OnClickListener() {
+        backBtn=findViewById(R.id.backButton);
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Assistant.this, Home.class);
-                startActivity(intent);
-                finish(); // Optional: If you want to close the current activity
+                finish();
             }
         });
+
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +34,9 @@ public class login extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(login.this, signUp.class); //should be main screen
+                Toast toast = Toast.makeText(login.this,"authentication through api call", Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent = new Intent(login.this, Home.class);
                 startActivity(intent);
                 finish();
             }
@@ -53,9 +56,8 @@ public class login extends AppCompatActivity {
         forgotPasswordTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(login.this, signUp.class);
+                Intent intent = new Intent(login.this, forgotPassword.class);
                 startActivity(intent);
-                finish();
             }
         });
     }

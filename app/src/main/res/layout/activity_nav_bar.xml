@@ -8,6 +8,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@drawable/nagv_bar_background"
+        android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +77,7 @@
                 android:id="@+id/more_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_button"
+                android:background="@drawable/icon_bg_deafult"
                 android:contentDescription="@string/more"
                 android:padding="16dp"
                 android:src="@drawable/ic_more" />
