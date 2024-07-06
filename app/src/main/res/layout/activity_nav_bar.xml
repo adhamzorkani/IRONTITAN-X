@@ -8,6 +8,7 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@drawable/nagv_bar_background"
+        android:baselineAligned="false"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".Home">
+
+    <TableRow
+        android:id="@+id/tableRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/profile"
+            android:focusable="true"
+            android:src="@drawable/profile" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/homeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/notification"
+            android:focusable="true"
+            android:src="@drawable/notification"
+            android:textColor="@color/white" />
+    </TableRow>
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="15dp"
+        android:autofillHints=""
+        android:background="@drawable/custom_edit_text_rounded"
+        android:drawableEnd="@drawable/ic_search"
+        android:hint="@string/search_for_near_by_gyms"
+        android:inputType="none"
+        android:paddingHorizontal="10dp"
+        android:textColor="#bdbdbd"
+        android:textColorHint="#bdbdbd"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tableRow"
+        tools:layout_editor_absoluteX="3dp"/>
+
+    <TableLayout
+        android:id="@+id/caloriesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_edit_text_rounded"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@id/searchBar">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/calories"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:gravity="center"
+            android:paddingVertical="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/flameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:drawablePadding="5dp"
+                    android:text="@string/_16"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:drawableStartCompat="@drawable/ic_flame" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/waterText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:drawablePadding="5dp"
+                    android:text="@string/_0_6_4l"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:drawableStartCompat="@drawable/ic_water" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progress="70"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/text_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remainig_calories"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                    app:layout_constraintCircle="@id/progressBar"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/discover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/discover"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesContainer" />
+
+    <TableRow
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/discover">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/chatBotButton"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_button"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:contentDescription="@string/chat_bot"
+                android:focusable="true"
+                app:srcCompat="@drawable/chatbot_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/chatbot"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/waterIntake"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_button"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:contentDescription="@string/water_intake"
+                android:focusable="true"
+                app:srcCompat="@drawable/ic_intake" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/water_intake"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/premium_button"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_button"
+                android:backgroundTint="@color/white"
+                android:clickable="true"
+                android:contentDescription="@string/upgrade_to_premium"
+                android:focusable="true"
+                app:srcCompat="@drawable/ic_crown" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/upgrade_to_npremium"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+    </TableRow>
+
+    <include
+        android:id="@+id/nav_bar"
+        layout="@layout/activity_nav_bar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

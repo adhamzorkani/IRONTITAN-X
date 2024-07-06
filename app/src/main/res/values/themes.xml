@@ -7,4 +7,9 @@
     </style>
 
     <style name="Theme.IRONTITANX" parent="Base.Theme.IRONTITANX" />
+
+    <style name="CustomSwitch" parent="Theme.AppCompat.Light">
+        <item name="android:thumb">@drawable/switch_thumb</item>
+        <item name="android:track">@drawable/switch_track</item>
+    </style>
 </resources>
