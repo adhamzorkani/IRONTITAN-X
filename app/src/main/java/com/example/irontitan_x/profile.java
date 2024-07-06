@@ -33,11 +33,13 @@ public class profile extends AppCompatActivity {
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
+        moreButton.setBackgroundResource(R.drawable.bg_button);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Navigate to the Home activity
+                moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, Home.class);
                 startActivity(intent);
             }
@@ -47,6 +49,7 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Fitness activity
+                moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, workoutPlan.class);
                 startActivity(intent);
             }
@@ -56,6 +59,7 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Food activity
+                moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, FoodActivity.class);
                 startActivity(intent);
             }
@@ -68,5 +72,6 @@ public class profile extends AppCompatActivity {
 
             }
         });
+
     }
 }

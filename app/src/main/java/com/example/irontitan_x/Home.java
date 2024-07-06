@@ -33,6 +33,7 @@ public class Home extends AppCompatActivity {
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
+        homeButton.setBackgroundResource(R.drawable.bg_button);
         chatbotBtn = findViewById(R.id.chatBotButton);
         chatbotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Fitness activity
+                homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(Home.this, workoutPlan.class);
                 startActivity(intent);
             }
@@ -61,6 +63,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Food activity
+                homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(Home.this, FoodActivity.class);
                 startActivity(intent);
             }
@@ -70,6 +73,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the More activity
+                homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(Home.this, profile.class);
                 startActivity(intent);
             }

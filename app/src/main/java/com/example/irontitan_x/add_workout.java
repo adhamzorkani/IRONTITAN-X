@@ -20,6 +20,8 @@ public class add_workout extends AppCompatActivity {
     private Button backButton;
     private Button addButton;
     private RecyclerView videoRecyclerView;
+    private VideoAdapter videoAdapter;
+    private List<VideoItem> videoItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,13 @@ public class add_workout extends AppCompatActivity {
             }
         });
 
-//        // Setup RecyclerView
-//        videoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        videoItems = new ArrayList<>();
-//        videoItems.add(new VideoItem(R.drawable.video1, "Bicep Curls (Dumbbell or Barbell)"));
-//        // Add more items as needed
-//
-//        videoAdapter = new VideoAdapter(videoItems);
-//        videoRecyclerView.setAdapter(videoAdapter);
+        // Setup RecyclerView
+        videoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        videoItems = new ArrayList<>();
+        videoItems.add(new VideoItem(R.drawable.video1, "Bicep Curls (Dumbbell or Barbell)"));
+        // Add more items as needed
+
+        videoAdapter = new VideoAdapter(videoItems);
+        videoRecyclerView.setAdapter(videoAdapter);
     }
 }
