@@ -23,4 +23,16 @@
     <string name="fitness">fitness</string>
     <string name="food">food</string>
     <string name="more">more</string>
+    <string name="play_button">play_button</string>
+    <string name="select_video">select_video</string>
+    <string name="search_icon">search_icon</string>
+    <string name="back_button">back_button</string>
+    <string name="search">search</string>
+    <string name="add_videos">add_videos</string>
+    <string name="add">Add</string>
+    <string name="bicep_curls_dumbbell_and_barbell">Bicep Curls (Dumbbell and Barbell)</string>
+    <string name="back">Back</string>
+    <string name="select_muscle">Select muscle</string>
+    <string name="search_hint">Search...</string>
+    <string name="meals_tracker">Meals Tracker</string>
 </resources>
