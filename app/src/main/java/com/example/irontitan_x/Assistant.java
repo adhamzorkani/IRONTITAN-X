@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
+
 public class Assistant extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -18,6 +20,7 @@ public class Assistant extends AppCompatActivity {
     private List<Message> messageList;
     private EditText sendBox;
     private ImageView sendIcon;
+    private ImageView backIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class Assistant extends AppCompatActivity {
         recyclerView = findViewById(R.id.Chats);
         sendBox = findViewById(R.id.send_box);
         sendIcon = findViewById(R.id.send_icon);
+        backIcon = findViewById(R.id.back);
 
         messageList = new ArrayList<>();
         messageAdapter = new MessageAdapter(messageList);
@@ -51,6 +55,15 @@ public class Assistant extends AppCompatActivity {
                     messageAdapter.notifyItemInserted(messageList.size() - 1);
                     recyclerView.scrollToPosition(messageList.size() - 1);
                 }
+            }
+        });
+
+        backIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Assistant.this, Home.class);
+                startActivity(intent);
+                finish(); // Optional: If you want to close the current activity
             }
         });
     }

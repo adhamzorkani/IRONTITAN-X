@@ -8,6 +8,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageButton;
+
 public class Home extends AppCompatActivity {
 
     @Override
@@ -19,6 +23,17 @@ public class Home extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        // Find the button and set an OnClickListener
+        ImageButton imageButton2 = findViewById(R.id.imageButton2);
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create an Intent to start the Assistant activity
+                Intent intent = new Intent(Home.this, Assistant.class);
+                startActivity(intent);
+            }
         });
     }
 }
