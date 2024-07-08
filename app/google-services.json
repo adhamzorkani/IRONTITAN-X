@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1078648876936",
+    "project_id": "irontitan-x",
+    "storage_bucket": "irontitan-x.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078648876936:android:424e228890d3e3c310943d",
+        "android_client_info": {
+          "package_name": "com.example.irontitan_x"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCUJcCvs9v6fSOMy7x6A5Oug6Uz2V3svQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
