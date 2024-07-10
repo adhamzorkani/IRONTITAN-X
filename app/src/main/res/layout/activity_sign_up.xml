@@ -37,7 +37,7 @@
         android:textSize="16sp"/>
 
      <EditText
-        android:id="@+id/NameField"
+        android:id="@+id/nameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -56,7 +56,7 @@
         android:background="@drawable/custom_edit_text_rounded"/>
 
     <EditText
-        android:id="@+id/EmailAddress"
+        android:id="@+id/emailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameField"
+        app:layout_constraintTop_toBottomOf="@+id/nameField"
         android:background="@drawable/custom_edit_text_rounded"
         android:hint="@string/email"
         android:autofillHints="emailAddress"
@@ -76,7 +76,7 @@
         android:textColorHint="@color/white"/>
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -86,7 +86,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmailAddress"
+        app:layout_constraintTop_toBottomOf="@+id/emailAddress"
         android:background="@drawable/custom_edit_text_rounded"
         android:hint="@string/password"
         android:textColor="@color/white"
@@ -106,7 +106,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password"
+        app:layout_constraintTop_toBottomOf="@+id/password"
         android:textSize="24sp"
         android:paddingVertical="10dp"/>
 

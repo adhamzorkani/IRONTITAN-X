@@ -10,6 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -23,10 +26,19 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        Intent intent;
+
+        if (currentUser != null){
+            intent = new Intent(MainActivity.this, Home.class);
+        } else {
+            intent = new Intent(MainActivity.this, login.class);
+        }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, login.class);
                 startActivity(intent);
                 finish();
             }
