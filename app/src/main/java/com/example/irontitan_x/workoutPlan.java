@@ -50,6 +50,7 @@ public class workoutPlan extends AppCompatActivity {
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
+        fitnessButton.setBackgroundResource(R.drawable.bg_button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +88,7 @@ public class workoutPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Home activity
+                fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(workoutPlan.this, Home.class);
                 startActivity(intent);
             }
@@ -103,6 +105,7 @@ public class workoutPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Food activity
+                fitnessButton.setBackgroundResource(R.drawable.bg_button);
                 Intent intent = new Intent(workoutPlan.this, FoodActivity.class);
                 startActivity(intent);
             }
@@ -112,6 +115,7 @@ public class workoutPlan extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the More activity
+                fitnessButton.setBackgroundResource(R.drawable.bg_button);
                 Intent intent = new Intent(workoutPlan.this, profile.class);
                 startActivity(intent);
             }

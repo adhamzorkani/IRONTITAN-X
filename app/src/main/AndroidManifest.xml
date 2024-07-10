@@ -19,7 +19,7 @@
             android:name=".FoodActivity"
             android:exported="false" />
         <activity
-            android:name=".FoodAcitvity"
+            android:name=".add_workout"
             android:exported="false" />
         <activity
             android:name=".workoutPlan"

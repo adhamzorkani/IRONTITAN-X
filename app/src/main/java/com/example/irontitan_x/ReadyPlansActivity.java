@@ -10,6 +10,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReadyPlansActivity extends AppCompatActivity {
 
@@ -22,6 +25,8 @@ public class ReadyPlansActivity extends AppCompatActivity {
     private ImageButton fitnessButton;
     private ImageButton foodButton;
     private ImageButton moreButton;
+    private VideoAdapter videoAdapter;
+    private List<VideoItem> videoItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class ReadyPlansActivity extends AppCompatActivity {
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
+        fitnessButton.setBackgroundResource(R.drawable.bg_button);
 
         createPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +69,7 @@ public class ReadyPlansActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Home activity
+                fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(ReadyPlansActivity.this, Home.class);
                 startActivity(intent);
             }
@@ -79,6 +86,7 @@ public class ReadyPlansActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the Food activity
+                fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(ReadyPlansActivity.this, FoodActivity.class);
                 startActivity(intent);
             }
@@ -88,11 +96,19 @@ public class ReadyPlansActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Navigate to the More activity
+                fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(ReadyPlansActivity.this, profile.class);
                 startActivity(intent);
             }
         });
 
-        // TODO: Setup RecyclerView adapter and data to ensure lists are clickable
+        // Setup RecyclerView
+        videoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        videoItems = new ArrayList<>();
+        videoItems.add(new VideoItem(R.drawable.video1, "Bicep Curls (Dumbbell or Barbell)"));
+        // Add more items as needed
+
+        videoAdapter = new VideoAdapter(videoItems);
+        videoRecyclerView.setAdapter(videoAdapter);
     }
 }
