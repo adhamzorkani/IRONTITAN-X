@@ -20,7 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class signUp extends AppCompatActivity {
@@ -77,9 +81,36 @@ public class signUp extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Intent intent = new Intent(signUp.this, Home.class);
-                                    startActivity(intent);
-                                    finish();
+                                    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+                                    Map<String, Object> userObj = new HashMap<>();
+
+                                    userObj.put("name", name);
+                                    userObj.put("email", email);
+                                    userObj.put("weight_goal", "");
+                                    userObj.put("activity_level", "");
+                                    userObj.put("gender", "");
+                                    userObj.put("age", 0);
+                                    userObj.put("height", 0);
+                                    userObj.put("weight", 0);
+                                    userObj.put("plan", "standard");
+                                    userObj.put("streak", 0);
+                                    userObj.put("longest_streak", 0);
+                                    userObj.put("workout_plans", new HashMap<>());
+                                    userObj.put("calories_goal", 0);
+                                    userObj.put("calories_input", 0);
+                                    userObj.put("water_goal",0);
+                                    userObj.put("water_input", 0);
+
+                                    FirebaseUser user = auth.getCurrentUser();
+
+                                    if (user != null){
+                                        firestore.collection("users").document(user.getUid())
+                                                .set(userObj);
+                                        Intent intent = new Intent(signUp.this, userInfo.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 } else {
                                     Toast.makeText(signUp.this, Objects.requireNonNull(task.getException()).toString(),
                                             Toast.LENGTH_SHORT).show();

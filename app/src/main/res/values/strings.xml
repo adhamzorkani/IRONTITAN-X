@@ -10,7 +10,7 @@
     <string name="home">Home</string>
     <string name="calories">Calories</string>
     <string name="search">Search for nearby gyms</string>
-    <string name="remainig_calories">1680\nRemaining</string>
+    <string name="remaining_calories">1680\nRemaining</string>
     <string name="assistant">Personal Assistant</string>
     <string name="message">Type a message…</string>
     <string name="app_logo">App Logo</string>
@@ -84,4 +84,19 @@
     <string name="add_exercise">Add Exercise</string>
     <string name="create_plan">Create Plan</string>
     <string name="add_to_my_plans">Add to my Plans</string>
+    <string name="please_tell_us_a_bit_about_yourself">Please tell us a bit about yourself</string>
+    <string name="goal">Goal:</string>
+    <string name="activeness">Activeness:</string>
+    <string-array name="goal_options">
+        <item>Lose weight</item>
+        <item>Gain weight</item>
+        <item>Maintain weight</item>
+        <item>Modify diet</item>
+    </string-array>
+    <string-array name="activity_options">
+        <item>No activity</item>
+        <item>Light activity</item>
+        <item>Active</item>
+        <item>Highly active</item>
+    </string-array>
 </resources>

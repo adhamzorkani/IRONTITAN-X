@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".goals4"
+    tools:context=".plan"
     android:background="@color/background">
 
     <TextView
@@ -42,23 +42,6 @@
         tools:layout_editor_absoluteX="0dp">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/red_tab"
-            android:src="@drawable/goals_tab_red" />
-
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/red_tab"
-            android:src="@drawable/goals_tab_red" />
-
-        <ImageView
             android:id="@+id/imageView3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -90,6 +73,7 @@
         android:gravity="center"/>
 
     <RadioGroup
+        android:id="@+id/toggle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/subscription"
@@ -97,7 +81,7 @@
         android:layout_marginTop="20dp">
 
         <RadioButton
-            android:id="@+id/radio_premium"
+            android:id="@+id/premium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/switch_crown"
@@ -112,10 +96,8 @@
             android:paddingVertical="10dp"
             android:drawableEnd="@drawable/_19_99"/>
 
-
-
         <RadioButton
-            android:id="@+id/radio_standard"
+            android:id="@+id/standard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/switch_free"

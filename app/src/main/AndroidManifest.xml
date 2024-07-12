@@ -47,16 +47,10 @@
             android:name=".Home"
             android:exported="false" />
         <activity
-            android:name=".goals4"
+            android:name=".plan"
             android:exported="false" />
         <activity
-            android:name=".goals3"
-            android:exported="false" />
-        <activity
-            android:name=".goals2"
-            android:exported="false" />
-        <activity
-            android:name=".goals1"
+            android:name=".userInfo"
             android:exported="false" />
         <activity
             android:name=".login"
