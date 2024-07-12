@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="1">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/foodName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:text="Food Name" />
+
+        <TextView
+            android:id="@+id/foodGrams"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:text="Grams" />
+
+        <TextView
+            android:id="@+id/foodEnergy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:textSize="18sp"
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:text="Energy" />
+
+        <TextView
+            android:id="@+id/RemoveFood"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.25"
+            android:focusable="true"
+            android:textSize="18sp"
+            android:clickable="true"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:text="Remove"
+            />
+    </TableRow>
+
+</TableLayout>
