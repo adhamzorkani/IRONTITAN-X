@@ -12,7 +12,7 @@ public class FoodLogItem {
     public FoodLogItem(String name, int grams, int energy) {
         this.name = name;
         this.grams = grams;
-        this.energy = energy;
+        this.energy = energy*grams/100;
     }
 
     public String getName() {

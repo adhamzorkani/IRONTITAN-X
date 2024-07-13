@@ -42,6 +42,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
                 String grams = holder.foodGrams.getText().toString().trim();
                 if (!grams.isEmpty()) {
                     activity.addFoodToLog(foodItem, Integer.parseInt(grams));
+                    holder.foodGrams.setText("");
                 }
             }
         });

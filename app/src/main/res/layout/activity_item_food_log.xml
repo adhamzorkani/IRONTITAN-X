@@ -42,7 +42,7 @@
             android:text="Calories" />
 
         <TextView
-            android:id="@+id/RemoveFood"
+            android:id="@+id/removeFood"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"

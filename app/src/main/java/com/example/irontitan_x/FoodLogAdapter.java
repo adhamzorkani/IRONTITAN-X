@@ -1,22 +1,21 @@
 package com.example.irontitan_x;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.FoodLogViewHolder> {
 
     private List<FoodLogItem> foodLogList;
+    private FoodActivity activity;
 
-    public FoodLogAdapter(List<FoodLogItem> foodLogList) {
+    public FoodLogAdapter(List<FoodLogItem> foodLogList, FoodActivity activity) {
         this.foodLogList = foodLogList;
+        this.activity = activity;
     }
 
     @NonNull
@@ -32,6 +31,13 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.FoodLogV
         holder.foodName.setText(foodLogItem.getName());
         holder.foodGrams.setText(String.valueOf(foodLogItem.getGrams()));
         holder.foodEnergy.setText(String.valueOf(foodLogItem.getEnergy()));
+
+        holder.removeFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeFoodItem(position);
+            }
+        });
     }
 
     @Override
@@ -39,16 +45,24 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.FoodLogV
         return foodLogList.size();
     }
 
+    private void removeFoodItem(int position) {
+        FoodLogItem removedItem = foodLogList.remove(position);
+        notifyItemRemoved(position);
+        activity.updateCaloriesAfterRemoval(removedItem);
+    }
+
     public static class FoodLogViewHolder extends RecyclerView.ViewHolder {
         TextView foodName;
         TextView foodGrams;
         TextView foodEnergy;
+        TextView removeFood;
 
         public FoodLogViewHolder(@NonNull View itemView) {
             super(itemView);
             foodName = itemView.findViewById(R.id.foodName);
             foodGrams = itemView.findViewById(R.id.foodGrams);
             foodEnergy = itemView.findViewById(R.id.foodEnergy);
+            removeFood = itemView.findViewById(R.id.removeFood);
         }
     }
 }

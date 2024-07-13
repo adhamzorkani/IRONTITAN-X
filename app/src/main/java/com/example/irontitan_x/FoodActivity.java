@@ -21,12 +21,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+import com.google.protobuf.NullValue;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
 
+    private Button addButton;
     private Button addWaterButton;
     private EditText searchBar;
     private EditText waterIntake;
@@ -44,17 +49,20 @@ public class FoodActivity extends AppCompatActivity {
     private int userCaloriesInput = 0;
     private int userWaterInput = 0;
     private int waterGoal = 0;
-    private int waterIntakeGoal = 0;
+    private int caloriesGoal = 1629; // Assuming you want to show calories goal.
     private TextView caloriesRemaining;
     private TextView waterRemaining;
-    private int caloriesGoal = 1629;
+    private ProgressBar progressBar;
+    private FirebaseFirestore firestore;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_tracking);
 
-
+        // Initialize UI components
+        addButton = findViewById(R.id.addButton);
         addWaterButton = findViewById(R.id.addWaterButton);
         searchBar = findViewById(R.id.searchBar);
         waterIntake = findViewById(R.id.waterIntake);
@@ -66,25 +74,24 @@ public class FoodActivity extends AppCompatActivity {
         moreButton = findViewById(R.id.more_button);
         caloriesRemaining = findViewById(R.id.caloriesRemaining);
         waterRemaining = findViewById(R.id.waterRemaining);
+        progressBar = findViewById(R.id.progressBar);
         foodButton.setBackgroundResource(R.drawable.bg_button);
+
+        firestore = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         foodLogRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         foodAdapter = new FoodAdapter(foodList, foodLogList, this);
-        foodLogAdapter = new FoodLogAdapter(foodLogList);
+        foodLogAdapter = new FoodLogAdapter(foodLogList, this);
 
         recyclerView.setAdapter(foodAdapter);
         foodLogRecyclerView.setAdapter(foodLogAdapter);
 
-//        if (currentUser != null) {
-//            fetchFoodData();
-//        } else {
-//            Log.d(TAG, "User is not authenticated");
-//            // Handle user not being authenticated (e.g., redirect to login)
-//        }
         fetchUserData();
         fetchFoodData();
+        fetchFoodLogData();
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,11 +113,11 @@ public class FoodActivity extends AppCompatActivity {
                 if (!waterInputText.isEmpty()) {
                     int waterIntakeAmount = Integer.parseInt(waterInputText);
                     addWaterIntake(waterIntakeAmount);
+                    waterIntake.setText("");
                 }
             }
         });
 
-        // Set up navigation buttons (home, fitness, food, more)
         setupNavigationButtons();
     }
 
@@ -124,7 +131,10 @@ public class FoodActivity extends AppCompatActivity {
                         if (document.exists()) {
                             userCaloriesInput = document.getLong("calories_input").intValue();
                             caloriesGoal = document.getLong("calories_goal").intValue();
+                            userWaterInput = document.getLong("water_input").intValue();
+                            waterGoal = document.getLong("water_goal").intValue();
                             updateCaloriesRemaining();
+                            updateWaterRemaining();
                         } else {
                             Log.d(TAG, "No such document");
                         }
@@ -153,16 +163,49 @@ public class FoodActivity extends AppCompatActivity {
                                     Log.d(TAG, "Added: " + name + " with calories: " + calories);
                                 }
                                 foodAdapter.notifyDataSetChanged();
+                            } else {
+                                Log.d(TAG, "No data found");
                             }
-                            else {
-                                Log.d(TAG, "No such document");
-                            }
+                        } else {
+                            Log.d(TAG, "No such document");
                         }
-                        else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
                     }
-                }) .addOnFailureListener(e -> Log.e(TAG, "Error fetching data", e));
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error fetching data", e));
+    }
+
+    private void fetchFoodLogData() {
+        if (user == null) return;
+
+        firestore.collection("users").document(user.getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            List<Map<String, Object>> dbFoodLog = (List<Map<String, Object>>) document.get("foodLogList");
+                            if (dbFoodLog != null) {
+                                foodLogList.clear();
+                                for (Map<String, Object> entry : dbFoodLog) {
+                                    String name = (String) entry.get("name");
+                                    long grams = (long) entry.get("grams");
+                                    float energy = (long) entry.get("energy");
+                                    energy = (energy/grams)*100;
+                                    foodLogList.add(new FoodLogItem(name, (int) grams, (int) energy));
+                                }
+                                foodLogAdapter.notifyDataSetChanged();
+                                updateCaloriesRemaining();
+                            }
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error fetching food log data", e));
     }
 
     private void filter(String text) {
@@ -213,31 +256,78 @@ public class FoodActivity extends AppCompatActivity {
     }
 
     public void addFoodToLog(FoodItem foodItem, int grams) {
-        foodLogList.add(new FoodLogItem(foodItem.getName(), grams, foodItem.getEnergy()));
+        FoodLogItem foodLogItem = new FoodLogItem(foodItem.getName(), grams, foodItem.getEnergy());
+        foodLogList.add(foodLogItem);
+        if (user != null) {
+            Map<String, Object> db_food = new HashMap<>();
+            db_food.put("foodLogList", foodLogList);
+            firestore.collection("users").document(user.getUid())
+                    .set(db_food, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Food log successfully updated!"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error updating food log", e));
+        }
         foodLogAdapter.notifyDataSetChanged();
+        updateCaloriesRemaining();
+    }
+
+    public void updateCaloriesAfterRemoval(FoodLogItem removedItem) {
+        //userCaloriesInput -= removedItem.getEnergy();
+        if (user != null) {
+            Map<String, Object> db_food = new HashMap<>();
+            db_food.put("foodLogList", foodLogList);
+            firestore.collection("users").document(user.getUid())
+                    .set(db_food, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Food log successfully updated!"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error updating food log", e));
+        }
+        updateCaloriesRemaining();
     }
 
     private void addWaterIntake(int amount) {
         userWaterInput += amount;
         updateWaterRemaining();
+        if (user != null) {
+            Map<String, Object> db_water = new HashMap<>();
+            db_water.put("water_input", userWaterInput);
+            firestore.collection("users").document(user.getUid())
+                    .set(db_water, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Water intake successfully updated!"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error updating water intake", e));
+        }
     }
 
     private void updateCaloriesRemaining() {
         int totalCalories = userCaloriesInput;
         for (FoodLogItem item : foodLogList) {
-            totalCalories += item.getGrams() * item.getEnergy() / 100; // Assuming energy is per 100 grams
+            totalCalories += item.getEnergy();
         }
         int remainingCalories = caloriesGoal - totalCalories;
         caloriesRemaining.setText(remainingCalories + " Calories remaining");
 
         int progress = (int) (((double) totalCalories / caloriesGoal) * 100);
-        ProgressBar progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(progress);
+
+        if (user != null) {
+            Map<String, Object> db_calories = new HashMap<>();
+            db_calories.put("calories_input", remainingCalories);
+            firestore.collection("users").document(user.getUid())
+                    .set(db_calories, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Calories input successfully updated!"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error updating calories input", e));
+        }
     }
 
     private void updateWaterRemaining() {
         int remainingWater = waterGoal - userWaterInput;
         waterRemaining.setText(remainingWater + " mL water remaining");
-    }
 
+        if (user != null) {
+            Map<String, Object> db_water = new HashMap<>();
+            db_water.put("water_input", userWaterInput);
+            firestore.collection("users").document(user.getUid())
+                    .set(db_water, SetOptions.merge())
+                    .addOnSuccessListener(aVoid -> Log.d(TAG, "Water intake successfully updated!"))
+                    .addOnFailureListener(e -> Log.w(TAG, "Error updating water intake", e));
+        }
+    }
 }
