@@ -27,7 +27,6 @@ public class Home extends AppCompatActivity {
     ImageButton chatbotBtn;
 
     User user;
-    double calorieGoal;
     TextView streakTV, waterIntakeTV, remainingCaloriesTV;
 
     @Override
@@ -51,6 +50,7 @@ public class Home extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
                                 user = document.toObject(User.class);
+                                System.out.println(user);
                             } else {
                                 Toast toast = Toast.makeText(Home.this, "There is no document for the current user", Toast.LENGTH_LONG);
                                 toast.show();
@@ -64,32 +64,28 @@ public class Home extends AppCompatActivity {
                         }
                     });
         }
-
-        calculateCalorieIntake();
-
         streakTV = findViewById(R.id.streakText);
         waterIntakeTV = findViewById(R.id.waterText);
         remainingCaloriesTV = findViewById(R.id.caloriesRemaining);
-
-
-
-        if (Objects.equals(user.getGender(), "male")){
-
-        }
-
-
         homeButton = findViewById(R.id.home_button);
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
         homeButton.setBackgroundResource(R.drawable.bg_button);
+
+        streakTV.setText(user.getStreak());
+
+        String waterIntake = user.getWater_input() + "/" + user.getWater_goal() + "L";
+        waterIntakeTV.setText(waterIntake);
+
+        int remainingCalories = Integer.parseInt(user.getCalories_goal()) - Integer.parseInt(user.getCalories_input());
+        String remainingCaloriesText = remainingCalories + "remaining";
+        remainingCaloriesTV.setText(remainingCaloriesText);
+
         chatbotBtn = findViewById(R.id.chatBotButton);
         chatbotBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Home.this, Assistant.class);
             startActivity(intent);
-        });
-        homeButton.setOnClickListener(v -> {
-            // Navigate to the Home activity
         });
 
         fitnessButton.setOnClickListener(v -> {
@@ -112,34 +108,5 @@ public class Home extends AppCompatActivity {
             Intent intent = new Intent(Home.this, profile.class);
             startActivity(intent);
         });
-    }
-
-    private void calculateCalorieIntake(){
-        double BMR, TDEE;
-        if (Objects.equals(user.getGender(), "male")) {
-            BMR = 66 + (13.7 * Double.parseDouble(user.getWeight())) + (5 * Double.parseDouble(user.getHeight())) - (6.8 * Double.parseDouble(user.getAge()));
-        } else {
-            BMR = 655 + (9.6 * Double.parseDouble(user.getWeight())) + (1.8 * Double.parseDouble(user.getHeight())) - (4.7 * Double.parseDouble(user.getAge()));
-        }
-
-        if (Objects.equals(user.getActivity_level(), "No activity")){
-            TDEE = BMR * 1.2;
-        } else if (Objects.equals(user.getActivity_level(), "Light activity")) {
-            TDEE = BMR * 1.375;
-        } else if (Objects.equals(user.getActivity_level(), "Active")) {
-            TDEE = BMR * 1.55;
-        } else if (Objects.equals(user.getActivity_level(), "Highly active")) {
-            TDEE = BMR * 1.725;
-        } else {
-            TDEE = BMR;
-        }
-
-        if (Objects.equals(user.getWeight_goal(), "Lose weight")){
-            TDEE -= 750;
-        } else  if (Objects.equals(user.getWeight_goal(), "Gain weight")){
-            TDEE += 750;
-        }
-
-        calorieGoal = TDEE;
     }
 }
