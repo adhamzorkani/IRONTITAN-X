@@ -66,7 +66,7 @@ public class plan extends AppCompatActivity {
 
             calculateCalorieIntake();
 
-            if (Objects.equals(gender, "male")){
+            if (Objects.equals(gender, "Male")){
                 waterGoal = "4";
             } else {
                 waterGoal = "3";
@@ -86,8 +86,8 @@ public class plan extends AppCompatActivity {
                 userObj.put("height", height);
                 userObj.put("age", age);
                 userObj.put("plan", plan);
-                userObj.put("calories_goal", calorieGoal);
-                userObj.put("water_goal", waterGoal);
+                userObj.put("calories_goal", (int)calorieGoal);
+                userObj.put("water_goal", Integer.parseInt(waterGoal) );
 
                 firestore.collection("users").document(user.getUid())
                         .update(userObj)

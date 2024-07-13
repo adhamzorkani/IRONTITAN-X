@@ -87,6 +87,7 @@
     <string name="please_tell_us_a_bit_about_yourself">Please tell us a bit about yourself</string>
     <string name="goal">Goal:</string>
     <string name="activeness">Activeness:</string>
+    <string name="nearby_gyms">Nearby Gyms</string>
     <string-array name="goal_options">
         <item>Lose weight</item>
         <item>Gain weight</item>
