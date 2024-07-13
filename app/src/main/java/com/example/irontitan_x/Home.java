@@ -3,6 +3,8 @@ package com.example.irontitan_x;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +26,13 @@ public class Home extends AppCompatActivity {
     ImageButton fitnessButton;
     ImageButton foodButton;
     ImageButton moreButton;
-    ImageButton chatbotBtn;
+    ImageButton nearByGymsBtn;
 
-    User user;
-    double calorieGoal;
     TextView streakTV, waterIntakeTV, remainingCaloriesTV;
+    ProgressBar progressBar;
+    TableLayout caloriesContainer;
+
+    User userObj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,51 @@ public class Home extends AppCompatActivity {
             return insets;
         });
 
+        streakTV = findViewById(R.id.streakText);
+        waterIntakeTV = findViewById(R.id.waterText);
+        remainingCaloriesTV = findViewById(R.id.text_remaining);
+        homeButton = findViewById(R.id.home_button);
+        fitnessButton = findViewById(R.id.fitness_button);
+        foodButton = findViewById(R.id.food_button);
+        moreButton = findViewById(R.id.more_button);
+        homeButton.setBackgroundResource(R.drawable.bg_button);
+        progressBar = findViewById(R.id.progressBar);
+        caloriesContainer = findViewById(R.id.caloriesContainer);
+
+        nearByGymsBtn = findViewById(R.id.locationButton);
+        nearByGymsBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(Home.this, NearbyGymsActivity.class);
+            startActivity(intent);
+        });
+
+        fitnessButton.setOnClickListener(v -> {
+            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
+            Intent intent = new Intent(Home.this, workoutPlan.class);
+            startActivity(intent);
+        });
+
+        foodButton.setOnClickListener(v -> {
+            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
+            Intent intent = new Intent(Home.this, FoodActivity.class);
+            startActivity(intent);
+        });
+
+        moreButton.setOnClickListener(v -> {
+            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
+            Intent intent = new Intent(Home.this, profile.class);
+            startActivity(intent);
+        });
+
+        caloriesContainer.setOnClickListener(v -> {
+            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
+            Intent intent = new Intent(Home.this, FoodActivity.class);
+            startActivity(intent);
+        });
+
+        fetchUserData();
+    }
+
+    private void fetchUserData() {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -50,96 +99,61 @@ public class Home extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                user = document.toObject(User.class);
+                                User user = document.toObject(User.class);
+                                if (user != null) {
+                                    userObj = user;
+                                    updateUIWithUserData(user);
+                                } else {
+                                    showToast("Failed to parse user data.");
+                                }
                             } else {
-                                Toast toast = Toast.makeText(Home.this, "There is no document for the current user", Toast.LENGTH_LONG);
-                                toast.show();
+                                showToast("There is no document for the current user.");
                             }
                         } else {
-                            Toast toast = Toast.makeText(Home.this, Objects.requireNonNull(task.getException()).toString(), Toast.LENGTH_LONG);
-                            toast.show();
-                            Intent intent = new Intent(Home.this, login.class);
-                            startActivity(intent);
-                            finish();
+                            showToast(Objects.requireNonNull(task.getException()).toString());
+                            redirectToLogin();
                         }
                     });
+        } else {
+            redirectToLogin();
         }
-
-        calculateCalorieIntake();
-
-        streakTV = findViewById(R.id.streakText);
-        waterIntakeTV = findViewById(R.id.waterText);
-        remainingCaloriesTV = findViewById(R.id.caloriesRemaining);
-
-
-
-        if (Objects.equals(user.getGender(), "male")){
-
-        }
-
-
-        homeButton = findViewById(R.id.home_button);
-        fitnessButton = findViewById(R.id.fitness_button);
-        foodButton = findViewById(R.id.food_button);
-        moreButton = findViewById(R.id.more_button);
-        homeButton.setBackgroundResource(R.drawable.bg_button);
-        chatbotBtn = findViewById(R.id.chatBotButton);
-        chatbotBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(Home.this, Assistant.class);
-            startActivity(intent);
-        });
-        homeButton.setOnClickListener(v -> {
-            // Navigate to the Home activity
-        });
-
-        fitnessButton.setOnClickListener(v -> {
-            // Navigate to the Fitness activity
-            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
-            Intent intent = new Intent(Home.this, workoutPlan.class);
-            startActivity(intent);
-        });
-
-        foodButton.setOnClickListener(v -> {
-            // Navigate to the Food activity
-            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
-            Intent intent = new Intent(Home.this, FoodActivity.class);
-            startActivity(intent);
-        });
-
-        moreButton.setOnClickListener(v -> {
-            // Navigate to the More activity
-            homeButton.setBackgroundResource(R.drawable.icon_bg_deafult);
-            Intent intent = new Intent(Home.this, profile.class);
-            startActivity(intent);
-        });
     }
 
-    private void calculateCalorieIntake(){
-        double BMR, TDEE;
-        if (Objects.equals(user.getGender(), "male")) {
-            BMR = 66 + (13.7 * Double.parseDouble(user.getWeight())) + (5 * Double.parseDouble(user.getHeight())) - (6.8 * Double.parseDouble(user.getAge()));
+    private void updateUIWithUserData(User user) {
+        streakTV.setText(String.valueOf(user.getStreak()));
+
+        String waterIntake = user.getWater_input() + "/" + user.getWater_goal() + "L";
+        waterIntakeTV.setText(waterIntake);
+
+        if (user.getCalories_goal()  < user.getCalories_input())
+        {
+            progressBar.setMax(user.getCalories_goal());
+            progressBar.setProgress(user.getCalories_goal());
+
+            double remainingCalories = user.getCalories_goal() - user.getCalories_input();
+            String remainingCaloriesText = (int)Math.abs(remainingCalories) + "\nexcess";
+            remainingCaloriesTV.setText(remainingCaloriesText);
         } else {
-            BMR = 655 + (9.6 * Double.parseDouble(user.getWeight())) + (1.8 * Double.parseDouble(user.getHeight())) - (4.7 * Double.parseDouble(user.getAge()));
+            progressBar.setMax(user.getCalories_goal());
+            progressBar.setProgress((int)user.getCalories_input());
+
+            double remainingCalories = user.getCalories_goal() - user.getCalories_input();
+            String remainingCaloriesText = (int)remainingCalories + "\nremaining";
+            remainingCaloriesTV.setText(remainingCaloriesText);
         }
 
-        if (Objects.equals(user.getActivity_level(), "No activity")){
-            TDEE = BMR * 1.2;
-        } else if (Objects.equals(user.getActivity_level(), "Light activity")) {
-            TDEE = BMR * 1.375;
-        } else if (Objects.equals(user.getActivity_level(), "Active")) {
-            TDEE = BMR * 1.55;
-        } else if (Objects.equals(user.getActivity_level(), "Highly active")) {
-            TDEE = BMR * 1.725;
-        } else {
-            TDEE = BMR;
-        }
 
-        if (Objects.equals(user.getWeight_goal(), "Lose weight")){
-            TDEE -= 750;
-        } else  if (Objects.equals(user.getWeight_goal(), "Gain weight")){
-            TDEE += 750;
-        }
 
-        calorieGoal = TDEE;
+    }
+
+    private void showToast(String message) {
+        Toast toast = Toast.makeText(Home.this, message, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    private void redirectToLogin() {
+        Intent intent = new Intent(Home.this, login.class);
+        startActivity(intent);
+        finish();
     }
 }
