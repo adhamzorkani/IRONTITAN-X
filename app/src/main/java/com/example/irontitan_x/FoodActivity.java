@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,8 +27,9 @@ import java.util.Map;
 
 public class FoodActivity extends AppCompatActivity {
 
-    private Button addButton;
+    private Button addWaterButton;
     private EditText searchBar;
+    private EditText waterIntake;
     private RecyclerView recyclerView;
     private RecyclerView foodLogRecyclerView;
     private ImageButton homeButton;
@@ -37,6 +41,13 @@ public class FoodActivity extends AppCompatActivity {
     private List<FoodItem> foodList = new ArrayList<>();
     private List<FoodLogItem> foodLogList = new ArrayList<>();
     private static final String TAG = "FoodActivity";
+    private int userCaloriesInput = 0;
+    private int userWaterInput = 0;
+    private int waterGoal = 0;
+    private int waterIntakeGoal = 0;
+    private TextView caloriesRemaining;
+    private TextView waterRemaining;
+    private int caloriesGoal = 1629;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +55,17 @@ public class FoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meal_tracking);
 
 
-        addButton = findViewById(R.id.addButton);
+        addWaterButton = findViewById(R.id.addWaterButton);
         searchBar = findViewById(R.id.searchBar);
+        waterIntake = findViewById(R.id.waterIntake);
         recyclerView = findViewById(R.id.recyclerView);
         foodLogRecyclerView = findViewById(R.id.foodLogRecyclerView);
         homeButton = findViewById(R.id.home_button);
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
+        caloriesRemaining = findViewById(R.id.caloriesRemaining);
+        waterRemaining = findViewById(R.id.waterRemaining);
         foodButton.setBackgroundResource(R.drawable.bg_button);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -69,6 +83,7 @@ public class FoodActivity extends AppCompatActivity {
 //            Log.d(TAG, "User is not authenticated");
 //            // Handle user not being authenticated (e.g., redirect to login)
 //        }
+        fetchUserData();
         fetchFoodData();
 
         searchBar.addTextChangedListener(new TextWatcher() {
@@ -84,8 +99,40 @@ public class FoodActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {}
         });
 
+        addWaterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String waterInputText = waterIntake.getText().toString();
+                if (!waterInputText.isEmpty()) {
+                    int waterIntakeAmount = Integer.parseInt(waterInputText);
+                    addWaterIntake(waterIntakeAmount);
+                }
+            }
+        });
+
         // Set up navigation buttons (home, fitness, food, more)
         setupNavigationButtons();
+    }
+
+    private void fetchUserData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("users").document("eP0uSlQ0vfRh2pzhx1D7cFCTA8i1")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            userCaloriesInput = document.getLong("calories_input").intValue();
+                            caloriesGoal = document.getLong("calories_goal").intValue();
+                            updateCaloriesRemaining();
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    } else {
+                        Log.d(TAG, "get failed with ", task.getException());
+                    }
+                })
+                .addOnFailureListener(e -> Log.e(TAG, "Error fetching user data", e));
     }
 
     private void fetchFoodData() {
@@ -101,9 +148,9 @@ public class FoodActivity extends AppCompatActivity {
                             if (data != null) {
                                 for (Map.Entry<String, Object> entry : data.entrySet()) {
                                     String name = entry.getKey();
-                                    long energy = (long) entry.getValue();
-                                    foodList.add(new FoodItem(name, (int) energy));
-                                    Log.d(TAG, "Added: " + name + " with energy: " + energy);
+                                    long calories = (long) entry.getValue();
+                                    foodList.add(new FoodItem(name, (int) calories));
+                                    Log.d(TAG, "Added: " + name + " with calories: " + calories);
                                 }
                                 foodAdapter.notifyDataSetChanged();
                             }
@@ -169,4 +216,28 @@ public class FoodActivity extends AppCompatActivity {
         foodLogList.add(new FoodLogItem(foodItem.getName(), grams, foodItem.getEnergy()));
         foodLogAdapter.notifyDataSetChanged();
     }
+
+    private void addWaterIntake(int amount) {
+        userWaterInput += amount;
+        updateWaterRemaining();
+    }
+
+    private void updateCaloriesRemaining() {
+        int totalCalories = userCaloriesInput;
+        for (FoodLogItem item : foodLogList) {
+            totalCalories += item.getGrams() * item.getEnergy() / 100; // Assuming energy is per 100 grams
+        }
+        int remainingCalories = caloriesGoal - totalCalories;
+        caloriesRemaining.setText(remainingCalories + " Calories remaining");
+
+        int progress = (int) (((double) totalCalories / caloriesGoal) * 100);
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setProgress(progress);
+    }
+
+    private void updateWaterRemaining() {
+        int remainingWater = waterGoal - userWaterInput;
+        waterRemaining.setText(remainingWater + " mL water remaining");
+    }
+
 }

@@ -39,21 +39,21 @@
             android:padding="8dp"
             android:textColor="@color/white"
             android:gravity="center_vertical"
-            android:text="Energy" />
+            android:text="Calories" />
 
         <TextView
             android:id="@+id/RemoveFood"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
-            android:focusable="true"
-            android:textSize="18sp"
             android:clickable="true"
-            android:padding="8dp"
+            android:focusable="true"
             android:gravity="center_vertical"
-            android:textColor="@color/white"
+            android:padding="8dp"
             android:text="Remove"
-            />
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </TableRow>
 
 </TableLayout>
