@@ -42,7 +42,7 @@
                 android:inputType="none"
                 android:hint="@string/select_muscle"
                 android:textColor="@color/black"
-                android:searchResultHighlightColor="@color/red"/>
+                android:searchResultHighlightColor="@color/red" />
 
 
         </com.google.android.material.textfield.TextInputLayout>

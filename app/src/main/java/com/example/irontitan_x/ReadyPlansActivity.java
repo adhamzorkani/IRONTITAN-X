@@ -102,13 +102,13 @@ public class ReadyPlansActivity extends AppCompatActivity {
             }
         });
 
-        // Setup RecyclerView
-        videoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        videoItems = new ArrayList<>();
-        videoItems.add(new VideoItem(R.drawable.video1, "Bicep Curls (Dumbbell or Barbell)"));
-        // Add more items as needed
-
-        videoAdapter = new VideoAdapter(videoItems);
-        videoRecyclerView.setAdapter(videoAdapter);
+//        // Setup RecyclerView
+//        videoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        videoItems = new ArrayList<>();
+//        videoItems.add(new VideoItem(R.drawable.video1, "Bicep Curls (Dumbbell or Barbell)"));
+//        // Add more items as needed
+//
+//        videoAdapter = new VideoAdapter(videoItems);
+//        videoRecyclerView.setAdapter(videoAdapter);
     }
 }

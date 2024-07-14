@@ -84,4 +84,7 @@
     <string name="add_exercise">Add Exercise</string>
     <string name="create_plan">Create Plan</string>
     <string name="add_to_my_plans">Add to my Plans</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="plan_name">Plan Name</string>
+    <string name="remove_exercise">Remove_exercise</string>
 </resources>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,10 @@ public class profile extends AppCompatActivity {
     private ImageButton fitnessButton;
     private ImageButton foodButton;
     private ImageButton moreButton;
+    private TextView profileButton;
+    private TextView goalsButton;
+    private TextView premiumButton;
+    private TextView settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,6 @@ public class profile extends AppCompatActivity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Home activity
                 moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, Home.class);
                 startActivity(intent);
@@ -48,7 +53,6 @@ public class profile extends AppCompatActivity {
         fitnessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Fitness activity
                 moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, workoutPlan.class);
                 startActivity(intent);
@@ -58,7 +62,6 @@ public class profile extends AppCompatActivity {
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Food activity
                 moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, FoodActivity.class);
                 startActivity(intent);
@@ -68,9 +71,31 @@ public class profile extends AppCompatActivity {
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the More activity
-
             }
+        });
+        // Initialize TextViews
+        profileButton = findViewById(R.id.profileButton);
+        goalsButton = findViewById(R.id.goalsButton);
+        premiumButton = findViewById(R.id.premiumButton);
+        settingsButton = findViewById(R.id.settingsButton);
+
+        profileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(profile.this, profile_info.class);
+            startActivity(intent);
+        });
+
+        goalsButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(profile.this, GoalsActivity.class);
+//            startActivity(intent);
+        });
+
+        premiumButton.setOnClickListener(v -> {
+            Toast.makeText(profile.this, "Upgrade to Premium clicked", Toast.LENGTH_SHORT).show();
+        });
+
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(profile.this, settings.class);
+            startActivity(intent);
         });
 
     }
