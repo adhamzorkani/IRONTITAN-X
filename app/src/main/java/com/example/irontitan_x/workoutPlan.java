@@ -1,26 +1,208 @@
-package com.example.irontitan_x;
+//package com.example.irontitan_x;
+//
+//import android.content.Intent;
+//import android.os.Bundle;
+//import android.view.View;
+//import android.widget.Button;
+//import android.widget.EditText;
+//import android.widget.ImageButton;
+//import android.widget.RadioButton;
+//import android.widget.RadioGroup;
+//import android.widget.Toast;
+//
+//import androidx.activity.EdgeToEdge;
+//import androidx.annotation.Nullable;
+//import androidx.appcompat.app.AppCompatActivity;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowInsetsCompat;
+//import androidx.recyclerview.widget.LinearLayoutManager;
+//import androidx.recyclerview.widget.RecyclerView;
+//
+//import com.google.firebase.auth.FirebaseAuth;
+//import com.google.firebase.auth.FirebaseUser;
+//import com.google.firebase.firestore.DocumentSnapshot;
+//import com.google.firebase.firestore.FirebaseFirestore;
+//import com.google.firebase.firestore.SetOptions;
+//import com.google.protobuf.NullValue;
+//
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//public class workoutPlan extends AppCompatActivity {
+//
+//    private Button addDayButton;
+//    private Button createPlanButton;
+//    private RecyclerView daysRecyclerView;
+//    private RadioGroup toggleGroup;
+//    private RadioButton readyPlanButton;
+//    private RadioButton customizeButton;
+//    private ImageButton homeButton;
+//    private ImageButton fitnessButton;
+//    private ImageButton foodButton;
+//    private ImageButton moreButton;
+//    private EditText planNameEditText;
+//
+//    private FirebaseFirestore firestore;
+//    private FirebaseUser user;
+//    private DayAdapter daysAdapter;
+//    private List<Day> daysList;
+//
+//    private static final int ADD_EXERCISE_REQUEST_CODE = 1;
+//    private static final int MAX_DAYS = 6;
+//    private Day selectedDay;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        EdgeToEdge.enable(this);
+//        setContentView(R.layout.activity_workout_plans);
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+//
+//        addDayButton = findViewById(R.id.addDayButton);
+//        createPlanButton = findViewById(R.id.createPlanButton);
+//        daysRecyclerView = findViewById(R.id.daysRecyclerView);
+//        toggleGroup = findViewById(R.id.toggle);
+//        readyPlanButton = findViewById(R.id.readyPlan);
+//        customizeButton = findViewById(R.id.customize);
+//        homeButton = findViewById(R.id.home_button);
+//        fitnessButton = findViewById(R.id.fitness_button);
+//        foodButton = findViewById(R.id.food_button);
+//        moreButton = findViewById(R.id.more_button);
+//        planNameEditText = findViewById(R.id.planName);
+//        fitnessButton.setBackgroundResource(R.drawable.bg_button);
+//
+//        daysList = new ArrayList<>();
+//        daysAdapter = new DayAdapter(daysList, this::onAddExerciseClicked);
+//        daysRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        daysRecyclerView.setAdapter(daysAdapter);
+//
+//        addDayButton.setOnClickListener(v -> addDay());
+//
+//        createPlanButton.setOnClickListener(v -> createPlan());
+//
+//        toggleGroup.setOnCheckedChangeListener((group, checkedId) -> {
+//            if (checkedId == R.id.readyPlan) {
+//                // Navigate to the Ready Plans activity
+//                Intent intent = new Intent(workoutPlan.this, ReadyPlansActivity.class);
+//                startActivity(intent);
+//            } else if (checkedId == R.id.customize) {
+//                // Navigate to the Customize activity (if different from current)
+//                // Intent intent = new Intent(WorkoutPlanActivity.this, CustomizeActivity.class);
+//                // startActivity(intent);
+//            }
+//        });
+//
+//        homeButton.setOnClickListener(v -> {
+//            // Navigate to the Home activity
+//            fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
+//            Intent intent = new Intent(workoutPlan.this, Home.class);
+//            startActivity(intent);
+//        });
+//
+//        fitnessButton.setOnClickListener(v -> {
+//            // Navigate to the Fitness activity
+//        });
+//
+//        foodButton.setOnClickListener(v -> {
+//            // Navigate to the Food activity
+//            fitnessButton.setBackgroundResource(R.drawable.bg_button);
+//            Intent intent = new Intent(workoutPlan.this, FoodActivity.class);
+//            startActivity(intent);
+//        });
+//
+//        moreButton.setOnClickListener(v -> {
+//            // Navigate to the More activity
+//            fitnessButton.setBackgroundResource(R.drawable.bg_button);
+//            Intent intent = new Intent(workoutPlan.this, profile.class);
+//            startActivity(intent);
+//        });
+//    }
+//
+//    private void addDay() {
+//        if (daysList.size() >= MAX_DAYS) {
+//            Toast.makeText(this, "You can only add up to 6 days.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        int dayNumber = daysList.size() + 1;
+//        Day newDay = new Day("Day " + dayNumber, new ArrayList<>());
+//        daysList.add(newDay);
+//        daysAdapter.notifyItemInserted(daysList.size() - 1);
+//    }
+//
+//    private void createPlan() {
+//        String planName = planNameEditText.getText().toString().trim();
+//        if (planName.isEmpty()) {
+//            planNameEditText.setError("Please enter a plan name");
+//            return;
+//        }
+//
+//        // TODO: Save the plan with the name and days
+//    }
+//
+//    private void onAddExerciseClicked(Day day) {
+//        selectedDay = day;
+//        Intent intent = new Intent(this, add_workout.class);
+//        startActivityForResult(intent, ADD_EXERCISE_REQUEST_CODE);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == ADD_EXERCISE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+//            ArrayList<VideoItem> selectedExercises = data.getParcelableArrayListExtra("selected_exercises");
+//            if (selectedExercises != null) {
+//                for (VideoItem item : selectedExercises) {
+//                    Exercise newExercise = new Exercise(item.getTitle());
+//                    selectedDay.addExercise(newExercise);
+//                }
+//                daysAdapter.notifyDataSetChanged();
+//            }
+//        }
+//    }
+//}
 
+package com.example.irontitan_x;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class workoutPlan extends AppCompatActivity {
 
-    private Button addButton;
+    private Button addDayButton;
     private Button createPlanButton;
-    private RecyclerView recyclerView;
+    private RecyclerView daysRecyclerView;
     private RadioGroup toggleGroup;
     private RadioButton readyPlanButton;
     private RadioButton customizeButton;
@@ -28,6 +210,17 @@ public class workoutPlan extends AppCompatActivity {
     private ImageButton fitnessButton;
     private ImageButton foodButton;
     private ImageButton moreButton;
+    private EditText planNameEditText;
+
+    private DayAdapter daysAdapter;
+    private List<Day> daysList;
+
+    private static final int ADD_EXERCISE_REQUEST_CODE = 1;
+    private static final int MAX_DAYS = 6;
+    private Day selectedDay;
+
+    private FirebaseFirestore db;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +233,12 @@ public class workoutPlan extends AppCompatActivity {
             return insets;
         });
 
-        addButton = findViewById(R.id.add_Button);
-        createPlanButton = findViewById(R.id.createPlan);
-        recyclerView = findViewById(R.id.recyclerView);
+        db = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        addDayButton = findViewById(R.id.addDayButton);
+        createPlanButton = findViewById(R.id.createPlanButton);
+        daysRecyclerView = findViewById(R.id.daysRecyclerView);
         toggleGroup = findViewById(R.id.toggle);
         readyPlanButton = findViewById(R.id.readyPlan);
         customizeButton = findViewById(R.id.customize);
@@ -50,77 +246,133 @@ public class workoutPlan extends AppCompatActivity {
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
+        planNameEditText = findViewById(R.id.planName);
         fitnessButton.setBackgroundResource(R.drawable.bg_button);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the exercise selection activity
-                Intent intent = new Intent(workoutPlan.this, add_workout.class);
+        daysList = new ArrayList<>();
+        daysAdapter = new DayAdapter(daysList, this::onAddExerciseClicked);
+        daysRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        daysRecyclerView.setAdapter(daysAdapter);
+
+        addDayButton.setOnClickListener(v -> addDay());
+
+        createPlanButton.setOnClickListener(v -> createPlan());
+
+        toggleGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.readyPlan) {
+                Intent intent = new Intent(workoutPlan.this, ReadyPlansActivity.class);
                 startActivity(intent);
+            } else if (checkedId == R.id.customize) {
             }
         });
 
-        createPlanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle create plan button click
-                // TODO: Implement create plan logic
-            }
+        homeButton.setOnClickListener(v -> {
+            // Navigate to the Home activity
+            fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
+            Intent intent = new Intent(workoutPlan.this, Home.class);
+            startActivity(intent);
         });
 
-        toggleGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.readyPlan) {
-                    // Navigate to the Ready Plans activity
-                    Intent intent = new Intent(workoutPlan.this, ReadyPlansActivity.class);
-                    startActivity(intent);
-                } else if (checkedId == R.id.customize) {
-                    // Navigate to the Customize activity (if different from current)
-                    // Intent intent = new Intent(WorkoutPlanActivity.this, CustomizeActivity.class);
-                    // startActivity(intent);
+        fitnessButton.setOnClickListener(v -> {
+            // Navigate to the Fitness activity
+        });
+
+        foodButton.setOnClickListener(v -> {
+            // Navigate to the Food activity
+            fitnessButton.setBackgroundResource(R.drawable.bg_button);
+            Intent intent = new Intent(workoutPlan.this, FoodActivity.class);
+            startActivity(intent);
+        });
+
+        moreButton.setOnClickListener(v -> {
+            // Navigate to the More activity
+            fitnessButton.setBackgroundResource(R.drawable.bg_button);
+            Intent intent = new Intent(workoutPlan.this, profile.class);
+            startActivity(intent);
+        });
+    }
+
+    private void addDay() {
+        if (daysList.size() >= MAX_DAYS) {
+            Toast.makeText(this, "You can only add up to 6 days.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        int dayNumber = daysList.size() + 1;
+        Day newDay = new Day("Day " + dayNumber, new ArrayList<>());
+        daysList.add(newDay);
+        daysAdapter.notifyItemInserted(daysList.size() - 1);
+    }
+
+    private void createPlan() {
+        String planName = planNameEditText.getText().toString().trim();
+        if (planName.isEmpty()) {
+            planNameEditText.setError("Please enter a plan name");
+            return;
+        }
+
+        List<Map<String, Object>> validDays = new ArrayList<>();
+        int dayCount = 1;
+
+        for (Day day : daysList) {
+            if (!day.getExercises().isEmpty()) {
+                Map<String, Object> dayMap = new HashMap<>();
+                List<Map<String, String>> exercises = new ArrayList<>();
+                for (Exercise exercise : day.getExercises()) {
+                    Map<String, String> exerciseMap = new HashMap<>();
+                    exerciseMap.put("name", exercise.getName());
+                    exerciseMap.put("url", exercise.getUrl());
+                    exercises.add(exerciseMap);
                 }
+                dayMap.put("Day " + dayCount, exercises);
+                validDays.add(dayMap);
+                dayCount++;
             }
-        });
+        }
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the Home activity
-                fitnessButton.setBackgroundResource(R.drawable.icon_bg_deafult);
-                Intent intent = new Intent(workoutPlan.this, Home.class);
-                startActivity(intent);
+        if (validDays.isEmpty()) {
+            Toast.makeText(this, "Please add at least one exercise to the plan.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, Object> plan = new HashMap<>();
+        plan.put("name", planName);
+        plan.put("days", validDays);
+
+        if (user != null) {
+            db.collection("users")
+                    .document(user.getUid())
+                    .collection("plans")
+                    .add(plan)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Plan created successfully!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(workoutPlan.this, workoutPlan.class);
+                        startActivity(intent);
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to create plan", Toast.LENGTH_SHORT).show());
+        } else {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void onAddExerciseClicked(Day day) {
+        selectedDay = day;
+        Intent intent = new Intent(this, add_workout.class);
+        startActivityForResult(intent, ADD_EXERCISE_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ADD_EXERCISE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            ArrayList<VideoItem> selectedExercises = data.getParcelableArrayListExtra("selected_exercises");
+            if (selectedExercises != null) {
+                for (VideoItem item : selectedExercises) {
+                    Exercise newExercise = new Exercise(item.getTitle(), item.getVideoUrl());
+                    selectedDay.addExercise(newExercise);
+                }
+                daysAdapter.notifyDataSetChanged();
             }
-        });
-
-        fitnessButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the Fitness activity
-            }
-        });
-
-        foodButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the Food activity
-                fitnessButton.setBackgroundResource(R.drawable.bg_button);
-                Intent intent = new Intent(workoutPlan.this, FoodActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        moreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Navigate to the More activity
-                fitnessButton.setBackgroundResource(R.drawable.bg_button);
-                Intent intent = new Intent(workoutPlan.this, profile.class);
-                startActivity(intent);
-            }
-        });
-
-        // TODO: Setup RecyclerView adapter and data
+        }
     }
 }

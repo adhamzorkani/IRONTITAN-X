@@ -25,6 +25,15 @@
             android:value="AIzaSyAyLu-t4wrvEScY328o1sw_hZyvhoAFr5E" />
 
         <activity
+            android:name=".settings"
+            android:exported="false" />
+        <activity
+            android:name=".edit_goals"
+            android:exported="false" />
+        <activity
+            android:name=".profile_info"
+            android:exported="false" />
+        <activity
             android:name=".ReadyPlansActivity"
             android:exported="false" />
         <activity

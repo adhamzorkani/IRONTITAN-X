@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,16 +13,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 public class profile extends AppCompatActivity {
 
     private ImageButton homeButton;
     private ImageButton fitnessButton;
     private ImageButton foodButton;
     private ImageButton moreButton;
-    TextView logoutTV;
-    FirebaseAuth auth;
+    private TextView profileButton;
+    private TextView goalsButton;
+    private TextView premiumButton;
+    private TextView settingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,19 +35,15 @@ public class profile extends AppCompatActivity {
             return insets;
         });
 
-        auth = FirebaseAuth.getInstance();
-
         homeButton = findViewById(R.id.home_button);
         fitnessButton = findViewById(R.id.fitness_button);
         foodButton = findViewById(R.id.food_button);
         moreButton = findViewById(R.id.more_button);
         moreButton.setBackgroundResource(R.drawable.bg_button);
-        logoutTV = findViewById(R.id.logoutText);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Home activity
                 moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, Home.class);
                 startActivity(intent);
@@ -56,7 +53,6 @@ public class profile extends AppCompatActivity {
         fitnessButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Fitness activity
                 moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, workoutPlan.class);
                 startActivity(intent);
@@ -66,7 +62,6 @@ public class profile extends AppCompatActivity {
         foodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the Food activity
                 moreButton.setBackgroundResource(R.drawable.icon_bg_deafult);
                 Intent intent = new Intent(profile.this, FoodActivity.class);
                 startActivity(intent);
@@ -76,22 +71,32 @@ public class profile extends AppCompatActivity {
         moreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to the More activity
-
             }
         });
+        // Initialize TextViews
+        profileButton = findViewById(R.id.profileButton);
+        goalsButton = findViewById(R.id.goalsButton);
+        premiumButton = findViewById(R.id.premiumButton);
+        settingsButton = findViewById(R.id.settingsButton);
 
-        logoutTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                Intent intent = new Intent(profile.this, login.class);
-                startActivity(intent);
-                finish();
-            }
+        profileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(profile.this, profile_info.class);
+            startActivity(intent);
         });
 
+        goalsButton.setOnClickListener(v -> {
+//            Intent intent = new Intent(profile.this, GoalsActivity.class);
+//            startActivity(intent);
+        });
 
+        premiumButton.setOnClickListener(v -> {
+            Toast.makeText(profile.this, "Upgrade to Premium clicked", Toast.LENGTH_SHORT).show();
+        });
+
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(profile.this, settings.class);
+            startActivity(intent);
+        });
 
     }
 }

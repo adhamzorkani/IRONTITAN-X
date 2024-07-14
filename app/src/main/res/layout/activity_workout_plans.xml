@@ -52,38 +52,70 @@
             android:checked="true"/>
     </RadioGroup>
 
-    <Button
-        android:id="@+id/add_Button"
+    <EditText
+        android:id="@+id/planName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:backgroundTint="@color/red"
-        android:text="@string/add_exercise"
+        android:autofillHints="emailAddress"
+        android:background="@drawable/custom_edit_text_rounded"
+        android:ems="10"
+        android:hint="@string/plan_name"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textColorHint="@color/white"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/toggle"
-        android:layout_marginTop="30dp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/add_Button"
-        app:layout_constraintBottom_toTopOf="@id/createPlan"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginTop="16dp" />
+        tools:layout_editor_absoluteX="3dp"
+        android:paddingHorizontal="10dp"
+        android:layout_marginHorizontal="20dp"/>
 
     <Button
-        android:id="@+id/createPlan"
+        android:id="@+id/addDayButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="20dp"
+        android:backgroundTint="@color/red"
+        app:layout_constraintTop_toBottomOf="@id/planName"
+        android:text="Add Day"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/addDayButton"
+        app:layout_constraintBottom_toTopOf="@id/createPlanButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:padding="16dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/daysRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_day" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/createPlanButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="@color/grey"
         android:paddingVertical="10dp"
-        android:text="@string/create_plan"
+        android:text="Create Plan"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,5 +129,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -100,4 +100,7 @@
         <item>Active</item>
         <item>Highly active</item>
     </string-array>
+    <string name="save_changes">Save Changes</string>
+    <string name="plan_name">Plan Name</string>
+    <string name="remove_exercise">Remove_exercise</string>
 </resources>
