@@ -35,7 +35,10 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.FoodLogV
         holder.removeFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeFoodItem(position);
+                int adapterPosition = holder.getAdapterPosition();
+                if (adapterPosition != RecyclerView.NO_POSITION) {
+                    removeFoodItem(adapterPosition);
+                }
             }
         });
     }
@@ -48,6 +51,7 @@ public class FoodLogAdapter extends RecyclerView.Adapter<FoodLogAdapter.FoodLogV
     private void removeFoodItem(int position) {
         FoodLogItem removedItem = foodLogList.remove(position);
         notifyItemRemoved(position);
+        notifyItemRangeChanged(position, foodLogList.size());
         activity.updateCaloriesAfterRemoval(removedItem);
     }
 

@@ -122,7 +122,7 @@ public class Home extends AppCompatActivity {
     private void updateUIWithUserData(User user) {
         streakTV.setText(String.valueOf(user.getStreak()));
 
-        String waterIntake = user.getWater_input() + "/" + user.getWater_goal() + "L";
+        String waterIntake = user.getWater_input()/1000 + "/" + user.getWater_goal() + "L";
         waterIntakeTV.setText(waterIntake);
 
         if (user.getCalories_goal()  < user.getCalories_input())

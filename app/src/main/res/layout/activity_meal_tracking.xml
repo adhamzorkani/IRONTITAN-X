@@ -106,20 +106,20 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginEnd="8dp"
-        android:hint="Enter water intake (mL)"
+        android:hint="Enter mL"
         android:inputType="number"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/addWaterButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/foodLogRecyclerView" />
+        app:layout_constraintBottom_toTopOf="@+id/navigation_bar"
+        app:layout_constraintEnd_toStartOf="@id/addWaterButton"/>
 
     <Button
         android:id="@+id/addWaterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="@color/grey"
         android:paddingVertical="10dp"
         android:text="Add Water Intake (mL)"
