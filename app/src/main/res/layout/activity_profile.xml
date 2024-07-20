@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingVertical="15dp"
-        android:text="@string/goals"
+        android:text="@string/my_plans"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"

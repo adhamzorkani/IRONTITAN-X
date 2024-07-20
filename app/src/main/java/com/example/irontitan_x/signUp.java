@@ -2,6 +2,7 @@ package com.example.irontitan_x;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +32,9 @@ public class signUp extends AppCompatActivity {
 
     Button signUpBtn;
     TextView orLoginTV;
-    FirebaseAuth  auth;
+    FirebaseAuth auth;
     EditText nameET, emailET, passwordET;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class signUp extends AppCompatActivity {
         emailET = findViewById(R.id.emailAddress);
         passwordET = findViewById(R.id.password);
 
-        signUpBtn=findViewById(R.id.signUpButton);
+        signUpBtn = findViewById(R.id.signUpButton);
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,18 +63,18 @@ public class signUp extends AppCompatActivity {
                 email = emailET.getText().toString();
                 password = passwordET.getText().toString();
 
-                if (TextUtils.isEmpty(name)){
+                if (TextUtils.isEmpty(name)) {
                     Toast.makeText(signUp.this, "Please enter name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (TextUtils.isEmpty(email)){
-                    Toast.makeText(signUp.this, "Please enter email" , Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(signUp.this, "Please enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)){
-                    Toast.makeText(signUp.this, "Please enter password" , Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(signUp.this, "Please enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -99,17 +101,26 @@ public class signUp extends AppCompatActivity {
                                     userObj.put("workout_plans", new HashMap<>());
                                     userObj.put("calories_goal", 0);
                                     userObj.put("calories_input", 0);
-                                    userObj.put("water_goal",0);
+                                    userObj.put("water_goal", 0);
                                     userObj.put("water_input", 0);
 
                                     FirebaseUser user = auth.getCurrentUser();
 
-                                    if (user != null){
+                                    if (user != null) {
                                         firestore.collection("users").document(user.getUid())
                                                 .set(userObj);
-                                        Intent intent = new Intent(signUp.this, userInfo.class);
-                                        startActivity(intent);
-                                        finish();
+
+                                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(signUp.this, "Verification email sent. Please verify your email.", Toast.LENGTH_SHORT).show();
+                                                    startEmailVerificationCheck(user);
+                                                } else {
+                                                    Toast.makeText(signUp.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                     }
                                 } else {
                                     Toast.makeText(signUp.this, Objects.requireNonNull(task.getException()).toString(),
@@ -120,7 +131,7 @@ public class signUp extends AppCompatActivity {
             }
         });
 
-        orLoginTV=findViewById(R.id.orLoginButton);
+        orLoginTV = findViewById(R.id.orLoginButton);
         orLoginTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,4 +142,24 @@ public class signUp extends AppCompatActivity {
         });
     }
 
+    private void startEmailVerificationCheck(FirebaseUser user) {
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                user.reload().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (user.isEmailVerified()) {
+                            Intent intent = new Intent(signUp.this, userInfo.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            handler.postDelayed(this, 2000); // Recheck every 2 seconds
+                        }
+                    } else {
+                        Toast.makeText(signUp.this, "Error checking email verification status.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }, 2000); // Initial delay of 2 seconds
+    }
 }
