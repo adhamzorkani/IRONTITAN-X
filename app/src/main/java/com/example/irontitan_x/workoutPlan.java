@@ -1,5 +1,6 @@
 package com.example.irontitan_x;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -21,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -53,6 +54,8 @@ public class workoutPlan extends AppCompatActivity {
     private FirebaseFirestore db;
     private FirebaseUser user;
 
+    private boolean isToggleListenerEnabled = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +84,7 @@ public class workoutPlan extends AppCompatActivity {
         fitnessButton.setBackgroundResource(R.drawable.bg_button);
 
         daysList = new ArrayList<>();
-        daysAdapter = new DayAdapter(daysList, this::onAddExerciseClicked);
+        daysAdapter = new DayAdapter(daysList, this::onAddExerciseClicked, true);
         daysRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         daysRecyclerView.setAdapter(daysAdapter);
 
@@ -90,10 +93,13 @@ public class workoutPlan extends AppCompatActivity {
         createPlanButton.setOnClickListener(v -> createPlan());
 
         toggleGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (!isToggleListenerEnabled) {
+                return;
+            }
             if (checkedId == R.id.readyPlan) {
-                Intent intent = new Intent(workoutPlan.this, ReadyPlansActivity.class);
-                startActivity(intent);
+                checkIfPremiumAndNavigate();
             } else if (checkedId == R.id.customize) {
+                // Already in the customize activity, no action needed
             }
         });
 
@@ -134,57 +140,6 @@ public class workoutPlan extends AppCompatActivity {
         daysAdapter.notifyItemInserted(daysList.size() - 1);
     }
 
-//    private void createPlan() {
-//        String planName = planNameEditText.getText().toString().trim();
-//        if (planName.isEmpty()) {
-//            planNameEditText.setError("Please enter a plan name");
-//            return;
-//        }
-//
-//        List<Map<String, Object>> validDays = new ArrayList<>();
-//        int dayCount = 1;
-//
-//        for (Day day : daysList) {
-//            if (!day.getExercises().isEmpty()) {
-//                Map<String, Object> dayMap = new HashMap<>();
-//                List<Map<String, String>> exercises = new ArrayList<>();
-//                for (Exercise exercise : day.getExercises()) {
-//                    Map<String, String> exerciseMap = new HashMap<>();
-//                    exerciseMap.put("name", exercise.getName());
-//                    exerciseMap.put("url", exercise.getUrl());
-//                    exercises.add(exerciseMap);
-//                }
-//                dayMap.put("Day " + dayCount, exercises);
-//                validDays.add(dayMap);
-//                dayCount++;
-//            }
-//        }
-//
-//        if (validDays.isEmpty()) {
-//            Toast.makeText(this, "Please add at least one exercise to the plan.", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        Map<String, Object> plan = new HashMap<>();
-//        plan.put("name", planName);
-//        plan.put("days", validDays);
-//
-//        if (user != null) {
-//            db.collection("users")
-//                    .document(user.getUid())
-//                    .collection("plans")
-//                    .add(plan)
-//                    .addOnSuccessListener(documentReference -> {
-//                        Toast.makeText(this, "Plan created successfully!", Toast.LENGTH_SHORT).show();
-//                        Intent intent = new Intent(workoutPlan.this, workoutPlan.class);
-//                        startActivity(intent);
-//                    })
-//                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to create plan", Toast.LENGTH_SHORT).show());
-//        } else {
-//            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-
     private void createPlan() {
         String planName = planNameEditText.getText().toString().trim();
         if (planName.isEmpty()) {
@@ -214,24 +169,42 @@ public class workoutPlan extends AppCompatActivity {
             return;
         }
 
-        Map<String, Object> plan = new HashMap<>();
-        plan.put(planName, validDaysMap);
+        Map<String, Object> newPlan = new HashMap<>();
+        newPlan.put(planName, validDaysMap);
 
         if (user != null) {
             db.collection("users")
                     .document(user.getUid())
-                    .update("workout_plans", plan)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(this, "Plan created successfully!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(workoutPlan.this, workoutPlan.class);
-                        startActivity(intent);
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        Map<String, Object> existingPlans = (Map<String, Object>) documentSnapshot.get("workout_plans");
+                        if (existingPlans == null) {
+                            existingPlans = new HashMap<>();
+                        }
+
+                        // Check if the plan name already exists
+                        if (existingPlans.containsKey(planName)) {
+                            Toast.makeText(this, "A plan with this name already exists. Please choose a different name.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        existingPlans.putAll(newPlan);
+
+                        db.collection("users")
+                                .document(user.getUid())
+                                .update("workout_plans", existingPlans)
+                                .addOnSuccessListener(aVoid -> {
+                                    Toast.makeText(this, "Plan created successfully!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(workoutPlan.this, workoutPlan.class);
+                                    startActivity(intent);
+                                })
+                                .addOnFailureListener(e -> Toast.makeText(this, "Failed to create plan", Toast.LENGTH_SHORT).show());
                     })
-                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to create plan", Toast.LENGTH_SHORT).show());
+                    .addOnFailureListener(e -> Toast.makeText(this, "Failed to retrieve existing plans", Toast.LENGTH_SHORT).show());
         } else {
             Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void onAddExerciseClicked(Day day) {
         selectedDay = day;
@@ -251,6 +224,73 @@ public class workoutPlan extends AppCompatActivity {
                 }
                 daysAdapter.notifyDataSetChanged();
             }
+        }
+    }
+
+    private void checkIfPremiumAndNavigate() {
+        if (user != null) {
+            db.collection("users").document(user.getUid())
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String currentPlan = documentSnapshot.getString("plan");
+                            if ("premium".equals(currentPlan)) {
+                                Intent intent = new Intent(workoutPlan.this, ReadyPlansActivity.class);
+                                startActivity(intent);
+                            } else {
+                                showUpgradeDialog();
+                            }
+                        } else {
+                            Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to retrieve user data", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showUpgradeDialog() {
+        isToggleListenerEnabled = false;
+        new AlertDialog.Builder(this)
+                .setTitle("Upgrade to Premium")
+                .setMessage("You need to be a premium member to access ready plans. Would you like to upgrade?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        upgradeToPremiumAndNavigate();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        toggleGroup.check(R.id.customize);
+                        isToggleListenerEnabled = true;
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void upgradeToPremiumAndNavigate() {
+        if (user != null) {
+            db.collection("users").document(user.getUid())
+                    .update("plan", "premium")
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(workoutPlan.this, "Successfully upgraded to premium", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(workoutPlan.this, ReadyPlansActivity.class);
+                        startActivity(intent);
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(workoutPlan.this, "Failed to upgrade to premium", Toast.LENGTH_SHORT).show();
+                        isToggleListenerEnabled = true;
+                    });
+        } else {
+            Toast.makeText(this, "User not authenticated", Toast.LENGTH_SHORT).show();
+            isToggleListenerEnabled = true;
         }
     }
 }

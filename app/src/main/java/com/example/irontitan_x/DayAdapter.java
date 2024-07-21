@@ -14,10 +14,12 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
 
     private final List<Day> days;
     private final OnAddExerciseClickListener onAddExerciseClickListener;
+    private final boolean isEditable;
 
-    public DayAdapter(List<Day> days, OnAddExerciseClickListener onAddExerciseClickListener) {
+    public DayAdapter(List<Day> days, OnAddExerciseClickListener onAddExerciseClickListener, boolean isEditable) {
         this.days = days;
         this.onAddExerciseClickListener = onAddExerciseClickListener;
+        this.isEditable = isEditable;
     }
 
     @NonNull
@@ -31,13 +33,16 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     public void onBindViewHolder(@NonNull DayViewHolder holder, int position) {
         Day day = days.get(position);
         holder.dayNameTextView.setText(day.getName());
-        holder.addExerciseButton.setOnClickListener(v -> onAddExerciseClickListener.onAddExerciseClick(day));
+
+        if (isEditable && onAddExerciseClickListener != null) {
+            holder.addExerciseButton.setVisibility(View.VISIBLE);
+            holder.addExerciseButton.setOnClickListener(v -> onAddExerciseClickListener.onAddExerciseClick(day));
+        } else {
+            holder.addExerciseButton.setVisibility(View.GONE);
+        }
 
         holder.exercisesRecyclerView.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
-        ExerciseAdapter exercisesAdapter = new ExerciseAdapter(day.getExercises(), exercise -> {
-            day.removeExercise(exercise);
-            notifyItemChanged(position);
-        });
+        ExerciseAdapter exercisesAdapter = new ExerciseAdapter(day.getExercises(), isEditable, holder.itemView.getContext());
         holder.exercisesRecyclerView.setAdapter(exercisesAdapter);
     }
 

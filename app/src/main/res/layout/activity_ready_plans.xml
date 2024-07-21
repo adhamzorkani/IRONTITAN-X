@@ -54,21 +54,21 @@
     </RadioGroup>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/videoRecyclerView"
+        android:id="@+id/plansRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/addPlan"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toggle"
-        app:layout_constraintBottom_toTopOf="@id/createPlan"
         app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/activity_item_video" />
+        tools:listitem="@layout/item_ready_plan" />
 
     <Button
-        android:id="@+id/createPlan"
+        android:id="@+id/addPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"

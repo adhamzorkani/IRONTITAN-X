@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
-        android:id="@+id/goalsButton"
+        android:id="@+id/plansButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -82,7 +82,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
         android:background="#CCCCCC"
-        app:layout_constraintTop_toBottomOf="@+id/goalsButton"
+        app:layout_constraintTop_toBottomOf="@+id/plansButton"
         android:layout_marginHorizontal="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

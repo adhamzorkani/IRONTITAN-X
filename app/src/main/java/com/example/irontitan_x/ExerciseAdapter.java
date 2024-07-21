@@ -1,5 +1,8 @@
 package com.example.irontitan_x;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +15,13 @@ import java.util.List;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
 
     private final List<Exercise> exercises;
-    private final OnRemoveExerciseClickListener onRemoveExerciseClickListener;
+    private final boolean isEditable;
+    private final Context context;
 
-    public ExerciseAdapter(List<Exercise> exercises, OnRemoveExerciseClickListener onRemoveExerciseClickListener) {
+    public ExerciseAdapter(List<Exercise> exercises, boolean isEditable, Context context) {
         this.exercises = exercises;
-        this.onRemoveExerciseClickListener = onRemoveExerciseClickListener;
+        this.isEditable = isEditable;
+        this.context = context;
     }
 
     @NonNull
@@ -30,7 +35,24 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         Exercise exercise = exercises.get(position);
         holder.exerciseNameTextView.setText(exercise.getName());
-        holder.removeExerciseButton.setOnClickListener(v -> onRemoveExerciseClickListener.onRemoveExerciseClick(exercise));
+
+        holder.itemView.setOnClickListener(v -> {
+            String url = exercise.getUrl();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            context.startActivity(intent);
+        });
+
+        if (isEditable) {
+            holder.removeExerciseButton.setVisibility(View.VISIBLE);
+            holder.removeExerciseButton.setOnClickListener(v -> {
+                exercises.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, exercises.size());
+            });
+        } else {
+            holder.removeExerciseButton.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -47,9 +69,5 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             exerciseNameTextView = itemView.findViewById(R.id.exerciseNameTextView);
             removeExerciseButton = itemView.findViewById(R.id.removeExerciseButton);
         }
-    }
-
-    public interface OnRemoveExerciseClickListener {
-        void onRemoveExerciseClick(Exercise exercise);
     }
 }
